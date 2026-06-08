@@ -1,0 +1,3507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="고등학교 경제 V-2. 무역 원리와 무역 정책 인터랙티브 학습 활동지">
+  <title>🌐 V. 국제 경제 - 02. 무역 원리와 무역 정책</title>
+  
+  <!-- Pretendard Variable 및 Google Fonts Outfit, Nanum Pen Script, Font Awesome CDN 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Urbanist:ital,wght@0,300;0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       1. 기본 테마 변수 및 초기화 (라이트 모드 & 모던 프리미엄 스타일)
+       ========================================================================== */
+    :root {
+      --transition-speed: 0.3s;
+      --transition-fast: 0.15s;
+      --text-main: #1e293b; /* Slate 800 */
+      --text-muted: #475569; /* Slate 600 */
+      --text-dark: #94a3b8; /* Slate 400 */
+      --card-bg: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+      --card-bg-solid: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.08);
+      
+      /* 기본 테마 컬러 (Teal) */
+      --accent: #0f766e; /* Teal 700 */
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+      
+      /* 개별 탭별 컬러 브랜드 (라이트모드 최적화) */
+      --free-color: #1e3a8a; /* Deep Blue */
+      --free-light: rgba(30, 58, 138, 0.08);
+      --free-shadow: rgba(30, 58, 138, 0.15);
+
+      --prot-color: #b91c1c; /* Rich Red */
+      --prot-light: rgba(185, 28, 28, 0.08);
+      --prot-shadow: rgba(185, 28, 28, 0.15);
+
+      --compare-color: #334155; /* Slate Gray */
+      --compare-light: rgba(51, 65, 85, 0.08);
+      --compare-shadow: rgba(51, 65, 85, 0.15);
+
+      --trends-color: #047857; /* Emerald Green */
+      --trends-light: rgba(4, 120, 87, 0.08);
+      --trends-shadow: rgba(4, 120, 87, 0.15);
+
+      --essay-color: #581c87; /* Purple */
+      --essay-light: rgba(88, 28, 135, 0.08);
+      --essay-shadow: rgba(88, 28, 135, 0.15);
+
+      --danger-color: #b91c1c;
+      --danger-light: rgba(185, 28, 28, 0.08);
+    }
+
+    /* 동적 테마 맵핑 (JS 연동) */
+    body.theme-intro {
+      --accent: #0f766e;
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+    }
+
+    body.theme-freetrade {
+      --accent: var(--free-color);
+      --accent-light: var(--free-light);
+      --accent-shadow: var(--free-shadow);
+      --bg-gradient: linear-gradient(135deg, #eff6ff 0%, #e2e8f0 100%);
+    }
+
+    body.theme-protection {
+      --accent: var(--prot-color);
+      --accent-light: var(--prot-light);
+      --accent-shadow: var(--prot-shadow);
+      --bg-gradient: linear-gradient(135deg, #fef2f2 0%, #e2e8f0 100%);
+    }
+
+    body.theme-compare {
+      --accent: var(--compare-color);
+      --accent-light: var(--compare-light);
+      --accent-shadow: var(--compare-shadow);
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+
+    body.theme-trends {
+      --accent: var(--trends-color);
+      --accent-light: var(--trends-light);
+      --accent-shadow: var(--trends-shadow);
+      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e2e8f0 100%);
+    }
+
+    body.theme-essay {
+      --accent: var(--essay-color);
+      --accent-light: var(--essay-light);
+      --accent-shadow: var(--essay-shadow);
+      --bg-gradient: linear-gradient(135deg, #faf5ff 0%, #e2e8f0 100%);
+    }
+
+    /* 초기화 및 기본 스타일 설정 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Pretendard Variable", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--text-main);
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-gradient);
+      transition: background var(--transition-speed) ease;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       2. 레이아웃 컨테이너 & 헤더
+       ========================================================================== */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 10;
+    }
+
+    .title-banner {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .badge-topic {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all var(--transition-speed);
+      letter-spacing: 0.05em;
+    }
+
+    .title-banner h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #0f172a 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      transition: background-image var(--transition-speed);
+    }
+
+    .title-banner p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       3. 컨트롤바 (상단 내비게이션 탭 & 워크북 설정)
+       ========================================================================== */
+    .control-bar {
+      display: flex;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.2rem 1.8rem;
+      box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.04);
+      width: 100%;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    /* 탭 디자인 */
+    .topic-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 0.35rem;
+      border-radius: 16px;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .topic-btn {
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #64748b; /* Slate 500 */
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .topic-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .topic-btn.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05),
+                  0 0 10px var(--accent-light);
+    }
+
+    /* 설정 그룹 */
+    .settings-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* 완성도 프로그래스 바 */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .progress-text-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-bg {
+      width: 100px;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 10px;
+      transition: width 0.3s ease, background-color var(--transition-speed) ease;
+    }
+
+    .progress-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--text-main);
+      min-width: 35px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* 학생/교사용 모드 토글 토글러 */
+    .mode-switch {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .mode-label {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #94a3b8;
+      transition: color var(--transition-speed);
+    }
+
+    .mode-label.active {
+      color: var(--text-main);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* 제어 액션 버튼 */
+    .btn-action {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .btn-action:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    .btn-action:active {
+      transform: translateY(0);
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ==========================================================================
+       4. 메인 대시보드 그리드 구조
+       ========================================================================== */
+    .content-wrapper {
+      position: relative;
+      min-height: 500px;
+    }
+
+    /* 본문 섹션 */
+    .lesson-section {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .lesson-section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 대단원 소개 슬로건 패널 */
+    .section-slogan {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-left: 6px solid var(--accent);
+      border-radius: 16px;
+      padding: 1.3rem 1.8rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.01);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    .slogan-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      line-height: 1.4;
+      color: #0f172a;
+      word-break: keep-all;
+    }
+
+    .slogan-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+
+    /* 2단 반응형 그리드 */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card-half {
+      grid-column: span 1;
+    }
+
+    .card-full {
+      grid-column: span 2;
+    }
+
+    /* 개별 대시보드 디자인 카드 */
+    .dashboard-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px var(--accent-shadow);
+    }
+
+    /* 카드 블록 헤더 타이틀 */
+    .block-title {
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #0f172a;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 0.6rem;
+    }
+
+    .block-title span.badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 800;
+      margin-left: 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .block-title span.badge.danger {
+      background: var(--danger-light);
+      color: var(--danger-color);
+      border-color: rgba(185, 28, 28, 0.1);
+    }
+
+    .block-title span.badge.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: #d97706;
+      border-color: rgba(245, 158, 11, 0.08);
+    }
+
+    /* 내용 텍스트 세로 스택 */
+    .card-content-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .definition-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 0.9rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .item-label {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .item-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #1e293b;
+      word-break: keep-all;
+    }
+
+    /* 컬러 분기 대비 테두리 스타일 */
+    .contrast-success {
+      border-left: 4px solid var(--free-color);
+      background: rgba(30, 58, 138, 0.02);
+    }
+    .contrast-success .item-label { color: var(--free-color); }
+
+    .contrast-failure {
+      border-left: 4px solid var(--prot-color);
+      background: rgba(185, 28, 28, 0.02);
+    }
+    .contrast-failure .item-label { color: var(--prot-color); }
+
+    /* ==========================================================================
+       5. 3단 타일 및 도전 항목 (3-Card Row Layout)
+       ========================================================================== */
+    .cards-sub-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .challenge-subcard {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .challenge-subcard:hover {
+      background: #ffffff;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.03);
+      border-color: var(--accent);
+    }
+
+    .subcard-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(0, 0, 0, 0.04);
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      line-height: 1;
+    }
+
+    .challenge-subcard h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 0.3rem;
+      border-bottom: 2px solid var(--accent-light);
+      padding-bottom: 0.4rem;
+      align-self: flex-start;
+    }
+
+    .challenge-subcard p {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: #475569;
+      word-break: keep-all;
+    }
+
+    /* ==========================================================================
+       6. 3단 타일 카드 리스트 (Tab 3 보호 무역 사유)
+       ========================================================================== */
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .tile-card {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .tile-card:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    }
+
+    .tile-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      border: 1px solid rgba(0,0,0,0.02);
+      color: var(--accent);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .tile-card:hover .tile-icon-box {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 15px var(--accent-shadow);
+    }
+
+    .tile-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .tile-desc {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #475569;
+    }
+
+    /* ==========================================================================
+       7. 경제 사상가 탐구 아바타
+       ========================================================================== */
+    .philosopher-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .p-flex-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 1rem 1.6rem;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .p-flex-item:hover {
+      transform: translateX(6px);
+      background: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .p-avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .p-avatar-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .p-flex-item:hover .p-avatar-img {
+      transform: scale(1.08) rotate(3deg);
+    }
+
+    .p-avatar-name {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .p-bubble {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.7;
+      flex: 1;
+      word-break: keep-all;
+    }
+
+    /* ==========================================================================
+       8. 단원 도입 탭 비주얼 가이드
+       ========================================================================== */
+    .intro-dashboard {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.5rem;
+    }
+
+    .intro-guide-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .intro-guide-card h3 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .guide-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .guide-list li {
+      font-size: 1.02rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: #475569;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .guide-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+    }
+
+    .intro-banner-box {
+      background: var(--accent-light);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .banner-icon {
+      font-size: 1.5rem;
+    }
+
+    .intro-banner-box p {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.4;
+    }
+
+    .intro-visual-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-split {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .split-side {
+      padding: 1.3rem;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .split-side:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    }
+
+    .split-free {
+      border-left: 5px solid var(--free-color);
+      background: rgba(30, 58, 138, 0.01);
+    }
+    .split-free h4 { color: var(--free-color); }
+
+    .split-protection {
+      border-left: 5px solid var(--prot-color);
+      background: rgba(185, 28, 28, 0.01);
+    }
+    .split-protection h4 { color: var(--prot-color); }
+
+    .split-icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .split-side h4 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+
+    .split-side p {
+      font-size: 1.2rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       9. 스플릿 레이아웃 (텍스트 + SVG 일러스트레이션)
+       ========================================================================== */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .split-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .split-bullet {
+      background: rgba(255, 255, 255, 0.5);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.3rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #334155;
+      transition: all 0.3s ease;
+      border-top: 1px solid rgba(0,0,0,0.01);
+      border-right: 1px solid rgba(0,0,0,0.01);
+      border-bottom: 1px solid rgba(0,0,0,0.01);
+    }
+
+    .split-bullet:hover {
+      background: #ffffff;
+      transform: translateX(5px);
+    }
+
+    .split-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .svg-container {
+      width: 100%;
+      max-width: 260px;
+      height: auto;
+      filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.08));
+    }
+
+    /* SVG 애니메이션 요소 클래스 */
+    .anim-rotate {
+      transform-origin: center;
+      animation: rotateGear 12s linear infinite;
+    }
+    .anim-pulse {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes rotateGear {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.85; }
+    }
+
+    /* ==========================================================================
+       10. 프리미엄 정보 테이블 디자인
+       ========================================================================== */
+    .table-container {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background: rgba(241, 245, 249, 0.9);
+      color: var(--accent);
+      font-weight: 800;
+      padding: 1.1rem 1.5rem;
+      font-size: 1.15rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      letter-spacing: 0.02em;
+    }
+
+    .th-free {
+      border-bottom-color: var(--free-color) !important;
+      color: var(--free-color) !important;
+    }
+
+    .th-prot {
+      border-bottom-color: var(--prot-color) !important;
+      color: var(--prot-color) !important;
+    }
+
+    .comparison-table td {
+      padding: 1.1rem 1.5rem;
+      font-size: 1.12rem;
+      color: #334155;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      line-height: 1.7;
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tbody tr {
+      transition: background-color 0.2s ease;
+    }
+
+    .comparison-table tbody tr:hover {
+      background-color: #ffffff;
+    }
+
+    .td-label {
+      font-weight: 800;
+      color: #0f172a;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .td-preset {
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* 테이블 행 뱃지 */
+    .table-badge {
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      display: inline-block;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+    .badge-tariff {
+      background: rgba(217, 119, 6, 0.1);
+      color: #b45309;
+    }
+    .badge-nontariff {
+      background: rgba(147, 51, 234, 0.1);
+      color: #7e22ce;
+    }
+
+    /* ==========================================================================
+       11. 인터랙티브 빈칸 (Blank) - 직접 타이핑 인풋 방식
+       ========================================================================== */
+    input.blank {
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.03);
+      color: var(--text-main);
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      padding: 0 8px;
+      margin: 0 4px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-align: center;
+      vertical-align: middle;
+      height: 2.0rem;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    input.blank:focus {
+      border-color: var(--accent);
+      background-color: #ffffff;
+      box-shadow: 0 0 8px var(--accent-light);
+    }
+
+    input.blank::placeholder {
+      color: #94a3b8;
+      opacity: 0.7;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    input.blank.revealed {
+      background-color: var(--accent) !important;
+      color: #ffffff !important; /* Premium white text over colored background */
+      border: 2px solid var(--accent) !important;
+      box-shadow: 0 4px 10px var(--accent-shadow);
+    }
+
+    /* Widen line heights globally in lesson sections containing blanks to avoid line wrap overlap */
+    .lesson-section .item-text, 
+    .lesson-section .bullet-content, 
+    .lesson-section .split-bullet, 
+    .lesson-section .tile-desc, 
+    .lesson-section td, 
+    .lesson-section li {
+      line-height: 2.0 !important;
+    }
+
+    /* 교사용 모드 정답 폰트 오버라이드 */
+    .mode-teacher input.blank {
+      background-color: transparent !important;
+      color: #dc2626 !important; /* Rich Red handwriting ink style */
+      font-family: 'Nanum Pen Script', cursive, sans-serif !important;
+      font-size: 1.85rem !important;
+      font-weight: 500 !important;
+      border: none !important;
+      border-bottom: 2px dashed rgba(220, 38, 38, 0.3) !important;
+      border-radius: 0 !important;
+      padding: 0 6px !important;
+      cursor: default;
+      height: auto !important;
+      line-height: inherit !important;
+      box-shadow: none !important;
+      vertical-align: baseline;
+    }
+
+    input.blank.shake {
+      border-color: var(--danger-color) !important;
+      background-color: var(--danger-light) !important;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes revealPop {
+      0% { transform: scale(0.92); }
+      70% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* ==========================================================================
+       12. 단어 바구니 (Word chips list) - 힌트 제공용
+       ========================================================================== */
+    .word-bank-wrapper {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .bank-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+
+    .word-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .word-chip {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 0.45rem 0.9rem;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: default;
+      user-select: none;
+      transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .word-chip.used {
+      opacity: 0.25;
+      border-style: dashed;
+      background-color: #f1f5f9;
+      text-decoration: line-through;
+    }
+
+    /* ==========================================================================
+       13. 주관식 토론 에세이 & 성과 체크리스트
+       ========================================================================== */
+    .essay-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .discussion-box-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .q-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid rgba(0,0,0,0.02);
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .q-header h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    .essay-textarea-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .essay-textarea-wrapper textarea {
+      width: 100%;
+      min-height: 110px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 1rem;
+      color: #1e293b;
+      font-size: 1rem;
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      transition: all 0.25s ease;
+    }
+
+    .essay-textarea-wrapper textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #ffffff;
+      box-shadow: 0 0 10px var(--accent-light);
+    }
+
+    .essay-textarea-wrapper textarea[readonly] {
+      background: rgba(0,0,0,0.02);
+      border-color: rgba(0, 0, 0, 0.05);
+      color: #dc2626;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 1.6rem;
+      cursor: not-allowed;
+    }
+
+    /* 자가진단 항목 */
+    .checklist-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      cursor: pointer;
+    }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      margin-top: 0.2rem;
+      cursor: pointer;
+    }
+
+    .checklist-text {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.5;
+      user-select: none;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       14. 불릿 형태 리스트 가로 배치 (Tab 2 자유무역 성과)
+       ========================================================================== */
+    .bullet-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .bullet-item {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .bullet-item:hover {
+      transform: translateX(6px);
+      background: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .bullet-index {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .bullet-content {
+      font-size: 1.05rem;
+      color: #334155;
+      line-height: 1.6;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       15. 피드백 요소를 위한 부가 스타일
+       ========================================================================== */
+    .sparkle-particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: sparkleExplosion 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes sparkleExplosion {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dest-x), var(--dest-y)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translate(-50%, 50px);
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      z-index: 999;
+      border: 1px solid rgba(0,0,0,0.05);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .app-footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      margin-top: 2rem;
+    }
+
+    /* ==========================================================================
+       16. 모달 다이얼로그 (학자 상세 정보 카드)
+       ========================================================================== */
+    .thinker-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .thinker-modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .thinker-modal-content {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .thinker-modal.show .thinker-modal-content {
+      transform: scale(1);
+    }
+
+    .thinker-modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .thinker-modal-close:hover {
+      color: #0f172a;
+    }
+
+    .thinker-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 1rem;
+    }
+
+    .modal-thinker-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    #modalThinkerName {
+      font-size: 1.3rem;
+      font-weight: 950;
+      color: #0f172a;
+    }
+
+    .modal-thinker-title {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .thinker-modal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-block {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .info-block p {
+      color: #475569;
+    }
+
+    .highlighted-quote {
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlighted-quote p {
+      font-style: italic;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .keyword-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .keyword-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid rgba(0,0,0,0.01);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    /* 인쇄용 학적 양식 헤더 */
+    .print-header {
+      display: none;
+    }
+
+    /* ==========================================================================
+       17. 인쇄 전용 스타일 (@media print)
+       ========================================================================== */
+    @media print {
+      body, html {
+        background-color: white !important;
+        background: none !important;
+        color: black !important;
+        font-size: 11pt;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        padding: 0 !important;
+      }
+
+      .container {
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        gap: 0 !important;
+      }
+
+      .control-bar, 
+      .app-footer, 
+      .word-bank-wrapper,
+      .badge-topic,
+      .title-banner p {
+        display: none !important;
+      }
+
+      .title-banner {
+        padding: 10mm 0 5mm 0 !important;
+      }
+
+      .title-banner h1 {
+        font-size: 24pt !important;
+        color: black !important;
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+      }
+
+      .content-wrapper {
+        display: block !important;
+      }
+
+      .lesson-section {
+        display: flex !important;
+        opacity: 1 !important;
+        position: relative !important;
+        width: 100% !important;
+        min-height: 275mm; /* A4 height */
+        page-break-after: always !important;
+        break-after: page !important;
+        padding: 10mm 5mm !important;
+      }
+
+      #tab-intro, #tab-quiz {
+        display: none !important;
+      }
+
+      .lesson-section:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+
+      .section-slogan {
+        border-left: 4px solid black !important;
+        background: none !important;
+        padding: 3mm 5mm !important;
+        margin-bottom: 6mm !important;
+        box-shadow: none !important;
+      }
+
+      .slogan-title {
+        font-size: 16pt !important;
+        color: black !important;
+      }
+
+      .slogan-desc {
+        color: #475569 !important;
+      }
+
+      .dashboard-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6mm !important;
+      }
+
+      .dashboard-card {
+        background: white !important;
+        border: 1.5px solid #475569 !important;
+        box-shadow: none !important;
+        padding: 4mm 6mm !important;
+        transform: none !important;
+        width: 100% !important;
+        break-inside: avoid !important;
+      }
+
+      .block-title {
+        font-size: 13pt !important;
+        border-bottom: 1.5px solid black !important;
+        color: black !important;
+      }
+
+      .block-title span.badge {
+        border: 1px solid black !important;
+        background: none !important;
+        color: black !important;
+      }
+
+      .definition-item {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        color: black !important;
+      }
+
+      .item-label {
+        color: black !important;
+      }
+
+      .item-text {
+        color: black !important;
+      }
+
+      .cards-sub-row, .grid-3col {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4mm !important;
+      }
+
+      .challenge-subcard, .tile-card {
+        background: white !important;
+        border: 1px solid #94a3b8 !important;
+        box-shadow: none !important;
+        padding: 4mm 5mm !important;
+        break-inside: avoid !important;
+      }
+
+      .tile-icon-box {
+        display: none !important;
+      }
+
+      .tile-title {
+        color: black !important;
+        border-bottom: 1px solid #cbd5e1;
+        padding-bottom: 2px;
+      }
+
+      .tile-desc {
+        color: black !important;
+      }
+
+      .subcard-num {
+        color: #475569 !important;
+        font-size: 14pt !important;
+        top: 2mm !important;
+        right: 3mm !important;
+      }
+
+      .philosopher-flex {
+        gap: 4mm !important;
+      }
+
+      .p-flex-item {
+        background: white !important;
+        border: 1px solid #94a3b8 !important;
+        color: black !important;
+      }
+
+      .p-avatar-img {
+        border-color: black !important;
+      }
+
+      .p-bubble {
+        color: black !important;
+      }
+
+      .split-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6mm !important;
+      }
+
+      .split-text {
+        width: 100% !important;
+      }
+
+      .split-bullet {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        border-left: 4px solid black !important;
+        color: black !important;
+      }
+
+      .split-visual {
+        display: none !important;
+      }
+
+      .comparison-table th {
+        background: #e2e8f0 !important;
+        color: black !important;
+        border-bottom: 1.5px solid black !important;
+      }
+
+      .comparison-table td {
+        color: black !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+      }
+
+      .td-label {
+        background: #f1f5f9 !important;
+        color: black !important;
+      }
+
+      .table-badge {
+        background: none !important;
+        border: 1px solid black !important;
+        color: black !important;
+      }
+
+      /* 인쇄용 학적 기입 헤더 양식 노출 */
+      .print-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid black;
+        padding-bottom: 3mm;
+        margin-bottom: 5mm;
+        width: 100%;
+      }
+
+      .print-header-title {
+        font-size: 12pt;
+        font-weight: 800;
+      }
+
+      .print-student-info {
+        font-size: 11pt;
+        letter-spacing: 1px;
+      }
+
+      /* 빈칸 인쇄 출력 포맷 */
+      input.blank {
+        background: white !important;
+        border: none !important;
+        border-bottom: 1.5px solid black !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        color: black !important;
+        font-weight: bold !important;
+      }
+
+      .mode-teacher input.blank {
+        color: #dc2626 !important; /* Red Ink for Print answer sheet */
+        font-family: 'Nanum Pen Script', cursive !important;
+        font-size: 17pt !important;
+        font-weight: 500 !important;
+      }
+
+      .discussion-box-card {
+        background: white !important;
+        border: 1.5px solid black !important;
+        box-shadow: none !important;
+        break-inside: avoid !important;
+      }
+
+      .q-badge {
+        border: 1px solid black !important;
+        color: black !important;
+        background: none !important;
+      }
+
+      .q-header h4 {
+        color: black !important;
+      }
+
+      .essay-textarea-wrapper textarea {
+        background: white !important;
+        border: 1px solid black !important;
+        color: black !important;
+        height: 60mm !important;
+      }
+
+      .essay-textarea-wrapper textarea[readonly] {
+        color: #dc2626 !important;
+        font-size: 1.6rem !important;
+      }
+
+      .checklist-text {
+        color: black !important;
+      }
+    }
+
+    /* ====================================================================
+       [Quiz Page Specific Styles]
+       ==================================================================== */
+    body.theme-quiz1, body.theme-quiz2, body.theme-quiz3 {
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+    }
+    
+    .quiz-sub-tabs {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #cbd5e1;
+      padding-bottom: 0.8rem;
+    }
+
+    .quiz-sub-btn {
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #64748b; /* Slate 500 */
+      transition: all var(--transition-speed) ease;
+    }
+
+    .quiz-sub-btn:hover {
+      color: var(--accent);
+      background: rgba(15, 118, 110, 0.05);
+    }
+
+    .quiz-sub-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .quiz-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 시뮬레이션 및 그래프 영역 */
+    .sim-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .price-control-panel {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .slider-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .slider-label {
+      font-weight: 700;
+      color: var(--text-main);
+      min-width: 80px;
+    }
+    
+    .price-slider {
+      flex: 1;
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .price-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      transition: transform 0.1s;
+    }
+    
+    .price-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    
+    .price-display {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 90px;
+      text-align: right;
+      font-family: monospace;
+    }
+    
+    .sim-status-box {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-light);
+      padding: 12px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .sim-status-box.balanced {
+      border-left-color: #047857;
+      background: #ecfdf5;
+      color: #065f46;
+      animation: pulse-border 1.5s infinite;
+    }
+
+    @keyframes pulse-border {
+      0% { border-left-color: #047857; }
+      50% { border-left-color: #34d399; }
+      100% { border-left-color: #047857; }
+    }
+
+    .graphs-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    
+    .graph-box {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: white;
+      text-align: center;
+    }
+    
+    .graph-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+    
+    .graph-svg {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+    }
+
+    /* 퀴즈 문제 및 풀이 영역 */
+    .quiz-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .question-block {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .question-info {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: white;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-content {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    /* 보기 및 정답 폼 */
+    .view-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .view-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    .view-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .view-option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .view-option-item:hover {
+      background: var(--bg-light);
+    }
+
+    .answer-selection {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .choice-btn-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .choice-btn-label:hover {
+      background: var(--bg-light);
+      border-color: var(--text-dark);
+    }
+
+    .choice-radio {
+      display: none;
+    }
+
+    .choice-radio:checked + .choice-btn-label {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      box-shadow: 0 4px 6px rgba(15, 118, 110, 0.2);
+    }
+
+    .submit-quiz-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--text-dark);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-quiz-btn:hover {
+      background: #0f172a;
+    }
+
+    .explanation-box {
+      display: none;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+      animation: slide-down 0.3s ease-out;
+    }
+
+    .explanation-box.visible {
+      display: block;
+    }
+
+    .explanation-box h4 {
+      color: #166534;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .explanation-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body class="mode-student theme-quiz1">
+
+  <div class="container">
+    <!-- 상단 대형 타이틀 배너 -->
+    <header class="title-banner">
+      <span class="badge-topic">V. 국제 경제 - 02</span>
+      <h1>실전 문제 분석 활동지</h1>
+      <p>수능 실전 문제를 풀며 무역 원리와 정책의 파급 효과를 분석해 봅시다.</p>
+    </header>
+
+    <!-- 컨트롤바 (탭 전환 & 설정 기능) -->
+    <div class="control-bar">
+      <div class="control-row">
+        <!-- 1차 대주제 전환 탭 메뉴 -->
+        <nav class="topic-tabs">
+          <a href="trade_lesson.html" class="topic-btn back-btn" style="text-decoration: none; color: #64748b; font-weight: 800;">
+            <span>🏁</span> 학습지로 돌아가기
+          </a>
+          <button class="topic-btn active" data-tab="quiz1">
+            <span>✏️</span> 실전 문제 1
+          </button>
+          <button class="topic-btn" data-tab="quiz2">
+            <span>✏️</span> 실전 문제 2
+          </button>
+          <button class="topic-btn" data-tab="quiz3">
+            <span>✏️</span> 실전 문제 3
+          </button>
+        </nav>
+
+        <!-- 학습 설정 및 모드 토글 -->
+        <div class="settings-group">
+          <!-- 진척도 표시 -->
+          <div class="progress-container">
+            <span class="progress-text-label">활동지 완성도</span>
+            <div class="progress-bar-bg">
+              <div id="progressBarFill" class="progress-bar-fill"></div>
+            </div>
+            <span id="progressText" class="progress-text">0%</span>
+          </div>
+
+          <!-- 모드 전환 스위치 (학생용 vs 교사용모범답안) -->
+          <div class="mode-switch">
+            <span class="mode-label label-student active">학생용 워크북</span>
+            <label class="switch">
+              <input type="checkbox" id="modeToggle">
+              <span class="slider"></span>
+            </label>
+            <span class="mode-label label-teacher">모범답안</span>
+          </div>
+
+          <!-- 인쇄 및 초기화 액션 -->
+          <button id="printBtn" class="btn-action" title="학습지 인쇄 (A4)">
+            <i class="fa-solid fa-print"></i>
+            인쇄
+          </button>
+          <button id="resetBtn" class="btn-action" title="학습 진척도 초기화">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            초기화
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메인 대시보드 콘텐츠 영역 -->
+    <main class="content-wrapper">
+      
+      <!-- ====================================================================
+           [Quiz 1 Section]
+           ==================================================================== -->
+      <section class="lesson-section active" id="tab-quiz1">
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (실전 문제 1)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">📝 실전 문제 1: 갑국과 을국의 무역 균형 및 파급 효과 분석</h2>
+        </div>
+
+        <!-- 실전 문제 1 컨테이너 -->
+        <div class="quiz-container-item" id="quiz-1-container">
+          <div class="quiz-layout">
+          <!-- 좌측: 시뮬레이션 및 그래프 -->
+          <div class="dashboard-card sim-card" style="padding:24px;">
+            <h3 class="block-title" style="font-size:1.2rem; margin-bottom:16px;">📊 [자료] 갑국과 을국의 X재 시장 상황 (교역 전)</h3>
+            <div class="static-quiz-graphs-large" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:20px; display:flex; justify-content:center;">
+              <svg viewBox="0 0 420 200" style="width:100%; max-width:900px; height:auto; background:#ffffff;">
+                <!-- ==================== GABGUK (LEFT) ==================== -->
+                <g>
+                  <!-- Title -->
+                  <text x="100" y="12" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">&lt;갑국&gt;</text>
+                  
+                  <!-- Axes -->
+                  <line x1="30" y1="170" x2="190" y2="170" stroke="#475569" stroke-width="1.8" />
+                  <line x1="30" y1="18" x2="30" y2="170" stroke="#475569" stroke-width="1.8" />
+                  
+                  <!-- Axis Arrows -->
+                  <path d="M 190 167 L 195 170 L 190 173 Z" fill="#475569" />
+                  <path d="M 27 18 L 30 13 L 33 18 Z" fill="#475569" />
+                  
+                  <!-- Axis Labels -->
+                  <text x="30" y="9" fill="#475569" font-size="9" font-weight="bold" text-anchor="middle">가격(달러)</text>
+                  <text x="195" y="180" fill="#475569" font-size="9" font-weight="bold" text-anchor="end">수량(개)</text>
+                  
+                  <!-- Curves -->
+                  <line x1="45" y1="45" x2="155" y2="155" stroke="#3b82f6" stroke-width="2.2" />
+                  <line x1="45" y1="155" x2="155" y2="45" stroke="#ef4444" stroke-width="2.2" />
+                  
+                  <!-- Curve Labels -->
+                  <text x="158" y="158" fill="#3b82f6" font-size="8.5" font-weight="bold" text-anchor="start">국내 수요</text>
+                  <text x="158" y="45" fill="#ef4444" font-size="8.5" font-weight="bold" text-anchor="start">국내 공급</text>
+                  
+                  <!-- Guidelines -->
+                  <!-- P=30 -->
+                  <line x1="30" y1="135" x2="135" y2="135" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- P=40 -->
+                  <line x1="30" y1="100" x2="100" y2="100" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- P=50 -->
+                  <line x1="30" y1="65" x2="135" y2="65" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Q=30 -->
+                  <line x1="65" y1="65" x2="65" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q=40 -->
+                  <line x1="100" y1="100" x2="100" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q=50 -->
+                  <line x1="135" y1="65" x2="135" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Intersection circles -->
+                  <circle cx="100" cy="100" r="3.5" fill="#0f172a" />
+                  <circle cx="65" cy="135" r="3" fill="#475569" />
+                  <circle cx="135" cy="135" r="3" fill="#475569" />
+                  <circle cx="65" cy="65" r="3" fill="#475569" />
+                  <circle cx="135" cy="65" r="3" fill="#475569" />
+                  
+                  <!-- Labels -->
+                  <text x="24" y="68" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">50</text>
+                  <text x="24" y="103" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">40</text>
+                  <text x="24" y="138" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">30</text>
+                  <text x="24" y="174" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <text x="65" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">30</text>
+                  <text x="100" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">40</text>
+                  <text x="135" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">50</text>
+                </g>
+                
+                <!-- ==================== EULGUK (RIGHT) ==================== -->
+                <g>
+                  <!-- Title -->
+                  <text x="320" y="12" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">&lt;을국&gt;</text>
+                  
+                  <!-- Axes -->
+                  <line x1="250" y1="170" x2="410" y2="170" stroke="#475569" stroke-width="1.8" />
+                  <line x1="250" y1="18" x2="250" y2="170" stroke="#475569" stroke-width="1.8" />
+                  
+                  <!-- Axis Arrows -->
+                  <path d="M 410 167 L 415 170 L 410 173 Z" fill="#475569" />
+                  <path d="M 247 18 L 250 13 L 253 18 Z" fill="#475569" />
+                  
+                  <!-- Axis Labels -->
+                  <text x="250" y="9" fill="#475569" font-size="9" font-weight="bold" text-anchor="middle">가격(달러)</text>
+                  <text x="415" y="180" fill="#475569" font-size="9" font-weight="bold" text-anchor="end">수량(개)</text>
+                  
+                  <!-- Curves -->
+                  <line x1="265" y1="45" x2="375" y2="155" stroke="#3b82f6" stroke-width="2.2" />
+                  <line x1="265" y1="155" x2="375" y2="45" stroke="#ef4444" stroke-width="2.2" />
+                  
+                  <!-- Curve Labels -->
+                  <text x="378" y="158" fill="#3b82f6" font-size="8.5" font-weight="bold" text-anchor="start">국내 수요</text>
+                  <text x="378" y="45" fill="#ef4444" font-size="8.5" font-weight="bold" text-anchor="start">국내 공급</text>
+                  
+                  <!-- Guidelines -->
+                  <!-- M=40 -->
+                  <line x1="250" y1="135" x2="355" y2="135" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- M=50 -->
+                  <line x1="250" y1="100" x2="320" y2="100" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- M=60 -->
+                  <line x1="250" y1="65" x2="355" y2="65" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Q=40 -->
+                  <line x1="285" y1="65" x2="285" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q=50 -->
+                  <line x1="320" y1="100" x2="320" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q=60 -->
+                  <line x1="355" y1="65" x2="355" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Intersection circles -->
+                  <circle cx="320" cy="100" r="3.5" fill="#0f172a" />
+                  <circle cx="285" cy="135" r="3" fill="#475569" />
+                  <circle cx="355" cy="135" r="3" fill="#475569" />
+                  <circle cx="285" cy="65" r="3" fill="#475569" />
+                  <circle cx="355" cy="65" r="3" fill="#475569" />
+                  
+                  <!-- Labels -->
+                  <text x="244" y="68" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">60</text>
+                  <text x="244" y="103" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">50</text>
+                  <text x="244" y="138" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">40</text>
+                  <text x="244" y="174" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <text x="285" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">40</text>
+                  <text x="320" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">50</text>
+                  <text x="355" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">60</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <!-- 우측: 수능 문제 & 단계별 해결 과정 -->
+          <div class="dashboard-card quiz-card">
+
+            
+            <div class="question-block">
+              <strong>[문제] 다음 자료에 대한 옳은 분석만을 &lt;보기&gt;에서 고른 것은?</strong><br><br>
+              X재는 갑국과 을국만이 생산하여 전량 소비한다. 현재 무역에 참여하지 않는 갑국과 을국은 양국 모두 이익이 발생하는 국제 가격 수준에서 양국 간에만 X재 자유 무역을 하고자 한다. 그림은 갑국과 을국의 현재 X재 시장 상황을 나타낸다.
+            </div>
+
+            <div class="step-list">
+              <!-- 단계 1 -->
+              <div class="step-item">
+                <div class="step-title"><span>📍</span> [단계 1] 교역 전 국내 시장 분석</div>
+                <div class="step-content">
+                  무역 이전 국내 균형 가격은 갑국이 <input type="text" class="blank" data-answer="40" data-id="q-b1" data-hint="숫자">달러, 을국이 <input type="text" class="blank" data-answer="50" data-id="q-b2" data-hint="숫자">달러입니다.
+                  국내 가격이 더 낮은 <input type="text" class="blank" data-answer="갑국" data-id="q-b3" data-hint="국가">이 수출국이 되고, 국내 가격이 더 높은 <input type="text" class="blank" data-answer="을국" data-id="q-b4" data-hint="국가">이 수입국이 됩니다.
+                </div>
+              </div>
+
+              <!-- 단계 2 -->
+              <div class="step-item">
+                <div class="step-title"><span>📍</span> [단계 2] 국제 균형 가격(P<sub>world</sub>) 결정</div>
+                <div class="step-content">
+                  양국 모두 이익을 얻기 위한 국제 무역 가격 범위는 <input type="text" class="blank" data-answer="40" data-id="q-b5" data-hint="숫자">달러보다 크고 <input type="text" class="blank" data-answer="50" data-id="q-b6" data-hint="숫자">달러보다 작아야 합니다.<br>
+                  갑국의 초과 공급량(수출량)과 을국의 초과 수요량(수입량)이 완전히 일치하는 균형 가격은 **<input type="text" class="blank" data-answer="45" data-id="q-b7" data-hint="숫자">달러**이며, 이때 총 교역량은 **<input type="text" class="blank" data-answer="10" data-id="q-b8" data-hint="숫자">개**입니다.
+                </div>
+              </div>
+
+              <!-- 단계 3 -->
+              <div class="step-item">
+                <div class="step-title"><span>📍</span> [단계 3] 경제적 효과 분석 (잉여 변화)</div>
+                <div class="step-content">
+                  <ul>
+                    <li><strong>갑국 (수출국):</strong> X재 가격이 40달러에서 45달러로 상승하므로, 소비자 잉여는 감소하고 생산자 잉여 및 판매 수입은 <input type="text" class="blank" data-answer="증가" data-id="q-b9" data-hint="ㅈㄱ/ㄱㅅ">합니다. 갑국의 총잉여도 교역 전 대비 <input type="text" class="blank" data-answer="증가" data-id="q-b10" data-hint="ㅈㄱ/ㄱㅅ">합니다.</li>
+                    <li><strong>을국 (수입국):</strong> X재 가격이 50달러에서 45달러로 하락하므로, 소비자 잉여는 <input type="text" class="blank" data-answer="증가" data-id="q-b11" data-hint="ㅈㄱ/ㄱㅅ">하고 생산자 잉여는 감소합니다. 을국의 총잉여 역시 교역 전 대비 <input type="text" class="blank" data-answer="증가" data-id="q-b12" data-hint="ㅈㄱ/ㄱㅅ">합니다.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 보기 박스 -->
+            <div class="view-card">
+              <div class="view-title">&lt; 보 기 &gt;</div>
+              <div class="view-options">
+                <div class="view-option-item">
+                  <strong>ㄱ.</strong> <span>교역에 따른 국제 가격 수준은 50달러보다 높다.</span>
+                </div>
+                <div class="view-option-item">
+                  <strong>ㄴ.</strong> <span>교역 후 갑국의 판매 수입은 교역 전에 비해 증가한다.</span>
+                </div>
+                <div class="view-option-item">
+                  <strong>ㄷ.</strong> <span>교역 후 을국의 소비자 잉여는 교역 전에 비해 증가한다.</span>
+                </div>
+                <div class="view-option-item">
+                  <strong>ㄹ.</strong> <span>교역 후 갑국과 달리 을국의 총잉여는 교역 전에 비해 증가한다.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 오지선다 정답 선택 -->
+            <div class="answer-selection">
+              <h4 style="font-weight: 700;">정답 선택</h4>
+              <div class="choices-grid">
+                <div>
+                  <input type="radio" name="quizChoice" id="c1" value="1" class="choice-radio">
+                  <label for="c1" class="choice-btn-label">① ㄱ, ㄴ</label>
+                </div>
+                <div>
+                  <input type="radio" name="quizChoice" id="c2" value="2" class="choice-radio">
+                  <label for="c2" class="choice-btn-label">② ㄱ, ㄷ</label>
+                </div>
+                <div>
+                  <input type="radio" name="quizChoice" id="c3" value="3" class="choice-radio">
+                  <label for="c3" class="choice-btn-label">③ ㄴ, ㄷ</label>
+                </div>
+                <div>
+                  <input type="radio" name="quizChoice" id="c4" value="4" class="choice-radio">
+                  <label for="c4" class="choice-btn-label">④ ㄴ, ㄹ</label>
+                </div>
+                <div>
+                  <input type="radio" name="quizChoice" id="c5" value="5" class="choice-radio">
+                  <label for="c5" class="choice-btn-label">⑤ ㄷ, ㄹ</label>
+                </div>
+              </div>
+              <button id="submitQuizBtn" class="submit-quiz-btn">정답 제출 및 해설 보기</button>
+            </div>
+
+            <!-- 해설 박스 -->
+            <div id="quizExplanation" class="explanation-box">
+              <h4>🎉 정답입니다! (선택한 답: ③ ㄴ, ㄷ)</h4>
+              <div class="explanation-text">
+                <ul>
+                  <li><strong>ㄱ (오답):</strong> 교역 후 국제 가격은 양국 무역이 균형을 이루는 <strong>45달러</strong>에서 결정되며, 이는 50달러보다 낮습니다.</li>
+                  <li><strong>ㄴ (정답):</strong> 갑국(수출국)의 판매 수입은 무역 전 <strong>1,600달러</strong>(40달러 * 40개)에서 무역 후 <strong>2,025달러</strong>(45달러 * 45개)로 425달러 증가합니다.</li>
+                  <li><strong>ㄷ (정답):</strong> 을국(수입국)은 시장 가격이 50달러에서 45달러로 떨어져 더 많은 양을 저렴하게 소비하게 되므로 <strong>소비자 잉여가 증가</strong>합니다.</li>
+                  <li><strong>ㄹ (오답):</strong> 자유 무역을 통해 거래 영역이 양국으로 확대될 때, 갑국과 을국 <strong>모두 총잉여가 교역 전보다 무조건 증가</strong>합니다.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="quiz1"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Quiz 2 Section]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-quiz2">
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (실전 문제 2)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">📝 실전 문제 2: 관세 부과에 따른 소비량 및 수입량 변화 분석</h2>
+        </div>
+
+        <!-- 실전 문제 2 컨테이너 -->
+        <div class="quiz-container-item" id="quiz-2-container" >
+          <div class="quiz-layout">
+            <!-- 좌측: 문제 그래프 시각화 (관세 부과 그래프 반영) -->
+            <div class="quiz-visual-column">
+              <div class="static-quiz-graphs-large" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:20px; display:flex; justify-content:center;">
+                <svg viewBox="0 0 450 200" width="100%" height="100%">
+                  <!-- Axes -->
+                  <line x1="80" y1="170" x2="380" y2="170" stroke="#475569" stroke-width="1.8" />
+                  <line x1="80" y1="18" x2="80" y2="170" stroke="#475569" stroke-width="1.8" />
+                  
+                  <!-- Axis Arrows -->
+                  <path d="M 380 167 L 385 170 L 380 173 Z" fill="#475569" />
+                  <path d="M 77 18 L 80 13 L 83 18 Z" fill="#475569" />
+                  
+                  <!-- Axis Labels -->
+                  <text x="80" y="9" fill="#475569" font-size="9" font-weight="bold" text-anchor="middle">가격</text>
+                  <text x="385" y="180" fill="#475569" font-size="9" font-weight="bold" text-anchor="end">수량</text>
+                  
+                  <!-- Curves -->
+                  <line x1="110" y1="45" x2="350" y2="155" stroke="#3b82f6" stroke-width="2.2" />
+                  <line x1="110" y1="155" x2="350" y2="45" stroke="#ef4444" stroke-width="2.2" />
+                  
+                  <!-- Curve Labels -->
+                  <text x="353" y="158" fill="#3b82f6" font-size="8.5" font-weight="bold" text-anchor="start">국내 수요</text>
+                  <text x="353" y="45" fill="#ef4444" font-size="8.5" font-weight="bold" text-anchor="start">국내 공급</text>
+                  
+                  <!-- Guidelines -->
+                  <!-- P_0 (y=125) -->
+                  <line x1="80" y1="125" x2="310" y2="125" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- P_1 (y=110) -->
+                  <line x1="80" y1="110" x2="290" y2="110" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Q_0 (x=175) -->
+                  <line x1="175" y1="125" x2="175" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q_1 (x=208) -->
+                  <line x1="208" y1="110" x2="208" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q_2 (x=252) -->
+                  <line x1="252" y1="110" x2="252" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  <!-- Q_3 (x=285) -->
+                  <line x1="285" y1="125" x2="285" y2="170" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2.5 2.5" />
+                  
+                  <!-- Markers/Circles -->
+                  <circle cx="175" cy="125" r="3.0" fill="#475569" />
+                  <circle cx="285" cy="125" r="3.0" fill="#475569" />
+                  <circle cx="208" cy="110" r="3.0" fill="#475569" />
+                  <circle cx="252" cy="110" r="3.0" fill="#475569" />
+                  <circle cx="230" cy="100" r="3.5" fill="#0f172a" />
+                  
+                  <!-- Axis Labels -->
+                  <text x="74" y="113" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">P₁</text>
+                  <text x="74" y="128" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">P₀</text>
+                  <text x="74" y="174" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <text x="175" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">Q₀</text>
+                  <text x="208" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">Q₁</text>
+                  <text x="252" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">Q₂</text>
+                  <text x="285" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">Q₃</text>
+                  
+                  <text x="312" y="128" fill="#475569" font-size="8.5" font-weight="bold" text-anchor="start">국제 가격(P₀)</text>
+                  <text x="292" y="113" fill="#475569" font-size="8.5" font-weight="bold" text-anchor="start">국제 가격+관세(P₁)</text>
+                </svg>
+              </div>
+            </div>
+            <!-- 우측: 수능 문제 & 단계별 해결 과정 -->
+            <div class="dashboard-card quiz-card">
+              <div class="question-block">
+                <strong>[문제] 다음 자료에 대한 분석으로 옳은 것은?</strong><br><br>
+                그림은 t+1기 갑국의 X재 시장 상황을 나타낸다. 갑국은 t기에 자유 무역을 통해 국제 가격 P<sub>0</sub> 수준에서 X재를 수입하였으며, t+1기에 수입하는 X재에 단위당 일정액의 관세를 부과하였다. 단, P<sub>1</sub>은 P<sub>0</sub>에 관세가 더해진 가격이고, 갑국에서 생산된 X재는 전량 국내 시장에서 판매되며, 국제 가격은 변함이 없다.
+              </div>
+
+              <div class="step-list">
+                <!-- 단계 1 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 1] 교역 정책 변화에 따른 가격 분석</div>
+                  <div class="step-content">
+                    자유 무역 상태인 t기 갑국의 X재 국내 가격은 국제 가격과 동일한 <input type="text" class="blank" data-answer="P_0|P0" data-id="q2-b1" data-hint="P_0/P_1">입니다. 관세가 부과된 t+1기 국내 가격은 <input type="text" class="blank" data-answer="P_1|P1" data-id="q2-b2" data-hint="P_0/P_1">으로 상승합니다.
+                  </div>
+                </div>
+
+                <!-- 단계 2 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 2] 소비량 및 수입량 변화 분석</div>
+                  <div class="step-content">
+                    국내 소비량은 t기 <input type="text" class="blank" data-answer="Q_3|Q3" data-id="q2-b3" data-hint="Q_0~Q_3">에서 t+1기 <input type="text" class="blank" data-answer="Q_2|Q2" data-id="q2-b4" data-hint="Q_0~Q_3">로 감소합니다.<br>
+                    수입량은 t기 <input type="text" class="blank" data-answer="Q_0Q_3|Q0Q3|Q_0 Q_3|Q0 Q3|Q_0~Q_3|Q0~Q3" data-id="q2-b5" data-hint="Q_0Q_3 등">에서 t+1기 <input type="text" class="blank" data-answer="Q_1Q_2|Q1Q2|Q_1 Q_2|Q1 Q2|Q_1~Q_2|Q1~Q2" data-id="q2-b6" data-hint="Q_1Q_2 등">로 감소합니다.
+                  </div>
+                </div>
+
+                <!-- 단계 3 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 3] 생산자 수입 및 관세 수입 분석</div>
+                  <div class="step-content">
+                    국내 생산자의 판매 수입은 t기 P<sub>0</sub> × <input type="text" class="blank" data-answer="Q_0|Q0" data-id="q2-b7" data-hint="Q_0 등">에서 t+1기 P<sub>1</sub> × <input type="text" class="blank" data-answer="Q_1|Q1" data-id="q2-b8" data-hint="Q_1 등">로 증가합니다.<br>
+                    정부의 관세 수입은 (P<sub>1</sub> - P<sub>0</sub>) × <input type="text" class="blank" data-answer="Q_1Q_2" data-id="q2-b9" data-hint="Q_1Q_2 등">입니다.
+                  </div>
+                </div>
+              </div>
+
+              <!-- 보기 박스 -->
+              <div class="view-card">
+                <div class="view-title">&lt; 선 택 지 &gt;</div>
+                <div class="view-options">
+                  <div class="view-option-item">
+                    <strong>①</strong> <span>t기 수입량은 Q₁Q₂이다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>②</strong> <span>t+1기 국내 가격은 P₀이다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>③</strong> <span>t+1기 관세 수입은 P₁ × Q₁Q₂이다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>④</strong> <span>t기 국내 소비량은 t+1기보다 많다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>⑤</strong> <span>t+1기 국내 생산자의 판매 수입은 t기보다 '(P₀ × Q₀) - (P₁ × Q₁)' 만큼 증가한다.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 오지선다 정답 선택 -->
+              <div class="answer-selection">
+                <h4 style="font-weight: 700;">정답 선택</h4>
+                <div class="choices-grid">
+                  <div>
+                    <input type="radio" name="quiz2Choice" id="q2-c1" value="1" class="choice-radio">
+                    <label for="q2-c1" class="choice-btn-label">① ①</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz2Choice" id="q2-c2" value="2" class="choice-radio">
+                    <label for="q2-c2" class="choice-btn-label">② ②</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz2Choice" id="q2-c3" value="3" class="choice-radio">
+                    <label for="q2-c3" class="choice-btn-label">③ ③</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz2Choice" id="q2-c4" value="4" class="choice-radio">
+                    <label for="q2-c4" class="choice-btn-label">④ ④</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz2Choice" id="q2-c5" value="5" class="choice-radio">
+                    <label for="q2-c5" class="choice-btn-label">⑤ ⑤</label>
+                  </div>
+                </div>
+                <button id="submitQuiz2Btn" class="submit-quiz-btn">정답 제출 및 해설 보기</button>
+              </div>
+
+              <!-- 해설 박스 -->
+              <div id="quiz2Explanation" class="explanation-box">
+                <h4>🎉 정답입니다! (선택한 답: ④)</h4>
+                <div class="explanation-text">
+                  <p style="font-weight: bold; margin-bottom: 8px;">[해설] 자유 무역 및 무역 정책의 효과 이해</p>
+                  <ul>
+                    <li><strong>{문제 분석}:</strong> 자유 무역을 통해 수입을 하는 국가의 해당 상품의 국내 가격은 해당 상품의 국제 가격과 일치하게 됩니다. 따라서 t기에 갑국의 X재 국내 가격은 P<sub>0</sub>입니다.</li>
+                    <li><strong>④ (정답):</strong> 국내 소비량은 t기가 Q<sub>3</sub>, t+1기가 Q<sub>2</sub>이므로 t기의 국내 소비량은 t+1기보다 많습니다.</li>
+                    <li><strong>① (오답):</strong> t기의 수입량은 Q<sub>0</sub>Q<sub>3</sub>입니다. (Q<sub>1</sub>Q<sub>2</sub>는 t+1기 수입량)</li>
+                    <li><strong>② (오답):</strong> t+1기의 국내 가격은 t기의 국내 가격 P<sub>0</sub>에 관세가 부과된 P<sub>1</sub>입니다.</li>
+                    <li><strong>③ (오답):</strong> t+1기의 관세 수입은 단위당 관세(P<sub>1</sub> - P<sub>0</sub>) × 수입량(Q<sub>1</sub>Q<sub>2</sub>)이므로 (P<sub>1</sub> - P<sub>0</sub>) × Q<sub>1</sub>Q<sub>2</sub> 입니다.</li>
+                    <li><strong>⑤ (오답):</strong> 국내 생산자의 판매 수입은 t기가 P<sub>0</sub> × Q<sub>0</sub>, t+1기가 P<sub>1</sub> × Q<sub>1</sub>입니다. 따라서 t+1기에 국내 생산자의 판매 수입은 t기보다 '(P<sub>1</sub> × Q<sub>1</sub>) - (P<sub>0</sub> × Q<sub>0</sub>)' 만큼 증가합니다.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="quiz2"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Quiz 3 Section]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-quiz3">
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (실전 문제 3)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">📝 실전 문제 3: 보호 무역 조치(관세 vs 보조금) 정책 분석</h2>
+        </div>
+
+        <!-- 실전 문제 3 컨테이너 -->
+        <div class="quiz-container-item" id="quiz-3-container" >
+          <div class="quiz-layout">
+            <!-- 좌측: 문제 그래프 시각화 (관세 및 보조금 보호무역 그래프 반영) -->
+            <div class="quiz-visual-column">
+              <div class="static-quiz-graphs-large" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:20px; display:flex; justify-content:center;">
+                <svg viewBox="92 -5 310 200" width="100%" height="100%">
+                  <!-- Grid Lines (Every 10 units - Precise Grid Paper style) -->
+                  <!-- Horizontal Grids (10, 20, ..., 400) -->
+                  <line x1="130" y1="166.50" x2="330" y2="166.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="163.00" x2="330" y2="163.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="159.50" x2="330" y2="159.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="156.00" x2="330" y2="156.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="152.50" x2="330" y2="152.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="149.00" x2="330" y2="149.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="145.50" x2="330" y2="145.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="142.00" x2="330" y2="142.00" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="130" y1="138.50" x2="330" y2="138.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="135.00" x2="330" y2="135.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="131.50" x2="330" y2="131.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="128.00" x2="330" y2="128.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="124.50" x2="330" y2="124.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="121.00" x2="330" y2="121.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="117.50" x2="330" y2="117.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="114.00" x2="330" y2="114.00" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="130" y1="110.50" x2="330" y2="110.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="107.00" x2="330" y2="107.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="103.50" x2="330" y2="103.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="100.00" x2="330" y2="100.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="96.50" x2="330" y2="96.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="93.00" x2="330" y2="93.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="89.50" x2="330" y2="89.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="86.00" x2="330" y2="86.00" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="130" y1="82.50" x2="330" y2="82.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="79.00" x2="330" y2="79.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="75.50" x2="330" y2="75.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="72.00" x2="330" y2="72.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="68.50" x2="330" y2="68.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="65.00" x2="330" y2="65.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="61.50" x2="330" y2="61.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="58.00" x2="330" y2="58.00" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="130" y1="54.50" x2="330" y2="54.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="51.00" x2="330" y2="51.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="47.50" x2="330" y2="47.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="44.00" x2="330" y2="44.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="40.50" x2="330" y2="40.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="37.00" x2="330" y2="37.00" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="33.50" x2="330" y2="33.50" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="130" y1="30.00" x2="330" y2="30.00" stroke="#cbd5e1" stroke-width="0.6" />
+                  
+                  <!-- Vertical Grids (10, 20, ..., 400) -->
+                  <line x1="135.00" y1="30" x2="135.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="140.00" y1="30" x2="140.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="145.00" y1="30" x2="145.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="150.00" y1="30" x2="150.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="155.00" y1="30" x2="155.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="160.00" y1="30" x2="160.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="165.00" y1="30" x2="165.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="170.00" y1="30" x2="170.00" y2="170" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="175.00" y1="30" x2="175.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="180.00" y1="30" x2="180.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="185.00" y1="30" x2="185.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="190.00" y1="30" x2="190.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="195.00" y1="30" x2="195.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="200.00" y1="30" x2="200.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="205.00" y1="30" x2="205.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="210.00" y1="30" x2="210.00" y2="170" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="215.00" y1="30" x2="215.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="220.00" y1="30" x2="220.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="225.00" y1="30" x2="225.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="230.00" y1="30" x2="230.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="235.00" y1="30" x2="235.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="240.00" y1="30" x2="240.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="245.00" y1="30" x2="245.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="250.00" y1="30" x2="250.00" y2="170" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="255.00" y1="30" x2="255.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="260.00" y1="30" x2="260.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="265.00" y1="30" x2="265.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="270.00" y1="30" x2="270.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="275.00" y1="30" x2="275.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="280.00" y1="30" x2="280.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="285.00" y1="30" x2="285.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="290.00" y1="30" x2="290.00" y2="170" stroke="#cbd5e1" stroke-width="0.6" />
+                  <line x1="295.00" y1="30" x2="295.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="300.00" y1="30" x2="300.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="305.00" y1="30" x2="305.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="310.00" y1="30" x2="310.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="315.00" y1="30" x2="315.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="320.00" y1="30" x2="320.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="325.00" y1="30" x2="325.00" y2="170" stroke="#e2e8f0" stroke-width="0.3" />
+                  <line x1="330.00" y1="30" x2="330.00" y2="170" stroke="#cbd5e1" stroke-width="0.6" />
+                  
+                  <!-- Axes -->
+                  <line x1="130" y1="170" x2="385" y2="170" stroke="#475569" stroke-width="1.8" />
+                  <line x1="130" y1="18" x2="130" y2="170" stroke="#475569" stroke-width="1.8" />
+                  
+                  <!-- Axis Arrows -->
+                  <path d="M 385 167 L 390 170 L 385 173 Z" fill="#475569" />
+                  <path d="M 127 18 L 130 13 L 133 18 Z" fill="#475569" />
+                  
+                  <!-- Axis Labels -->
+                  <text x="130" y="9" fill="#475569" font-size="9" font-weight="bold" text-anchor="middle">가격(달러)</text>
+                  <text x="390" y="180" fill="#475569" font-size="9" font-weight="bold" text-anchor="end">수량(개)</text>
+                  
+                  <!-- Curves -->
+                  <line x1="130" y1="30" x2="330" y2="170" stroke="#3b82f6" stroke-width="2.2" />
+                  <line x1="130" y1="170" x2="330" y2="30" stroke="#ef4444" stroke-width="2.2" />
+                  
+                  <!-- Curve Labels -->
+                  <text x="310" y="145" fill="#3b82f6" font-size="8.5" font-weight="bold" text-anchor="start">국내 수요</text>
+                  <text x="333" y="30" fill="#ef4444" font-size="8.5" font-weight="bold" text-anchor="start">국내 공급</text>
+                  
+                  <!-- 국제 가격 (P = 40) -->
+                  <line x1="130" y1="156" x2="330" y2="156" stroke="#475569" stroke-width="1.2" stroke-dasharray="3 3" />
+                  <text x="333" y="159" fill="#475569" font-size="8.5" font-weight="bold" text-anchor="start">국제 가격(40달러)</text>
+                  
+                  <!-- Axis Labels (Y-axis) -->
+                  <text x="124" y="33" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">400</text>
+                  <text x="124" y="61" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">320</text>
+                  <text x="124" y="89" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">240</text>
+                  <text x="124" y="117" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">160</text>
+                  <text x="124" y="145" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">80</text>
+                  <text x="124" y="159" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">40</text>
+                  <text x="124" y="174" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <!-- Axis Labels (X-axis) -->
+                  <text x="150" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">40</text>
+                  <text x="170" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">80</text>
+                  <text x="210" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">160</text>
+                  <text x="250" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">240</text>
+                  <text x="290" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">320</text>
+                  <text x="310" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">360</text>
+                  <text x="330" y="180" fill="#475569" font-size="9.5" font-weight="bold" text-anchor="middle">400</text>
+                  
+                  <!-- Key Intersections Circles -->
+                  <circle cx="230" cy="100" r="3.5" fill="#0f172a" /> <!-- equilibrium (200, 200) -->
+                  <circle cx="150" cy="156" r="3.0" fill="#475569" /> <!-- t-production Qs=40 -->
+                  <circle cx="310" cy="156" r="3.0" fill="#475569" /> <!-- t-consumption Qd=360 -->
+                  <circle cx="170" cy="142" r="3.0" fill="#475569" /> <!-- t+1 production Qs=80 -->
+                  <circle cx="290" cy="142" r="3.0" fill="#475569" /> <!-- t+1 consumption Qd=320 -->
+                </svg>
+              </div>
+            </div>
+            
+            <!-- 우측: 수능 문제 & 단계별 해결 과정 -->
+            <div class="dashboard-card quiz-card">
+              <div class="question-block">
+                <strong>[문제] 다음 자료에 대한 옳은 분석 및 추론만을 &lt;보기&gt;에서 고른 것은?</strong><br><br>
+                그림은 국제 가격 40달러에 X재를 수입하고 있는 t기에 갑국의 X재 시장 상황을 나타낸다. 갑국 정부는 t기 대비 t+1기의 수입량을 25% 감소하는 정책 목표를 달성하기 위해 수입하는 X재에 개당 관세 (가)달러를 부과하여 정책 목표를 달성하였다. 또한 갑국 정부는 t+2기에 추가적인 정책 목표 ㉠을 수립하고 이를 달성하기 위해 정책 (나)를 시행하였고, 그 결과 정책 목표를 달성하였다. 단, 갑국에서 생산된 X재는 전량 국내 시장에서 판매되고, 국제 가격은 변함이 없다.
+              </div>
+
+              <div class="step-list">
+                <!-- 단계 1 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 1] t기(자유 무역) 상태 분석</div>
+                  <div class="step-content">
+                    국제 가격 40달러에서 국내 생산량은 <input type="text" class="blank" data-answer="40|40개" data-id="q3-b2" data-hint="숫자">개, 국내 소비량은 <input type="text" class="blank" data-answer="360|360개" data-id="q3-b3" data-hint="숫자">개이므로 수입량은 <input type="text" class="blank" data-answer="320|320개" data-id="q3-b4" data-hint="숫자">개입니다. 이는 국내 생산량의 **<input type="text" class="blank" data-answer="8|8배" data-id="q3-b5" data-hint="숫자">배**입니다.
+                  </div>
+                </div>
+
+                <!-- 단계 2 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 2] t+1기(관세 부과) 상태 분석</div>
+                  <div class="step-content">
+                    t+1기의 목표 수입량은 t기 대비 25% 감소한 <input type="text" class="blank" data-answer="240|240개" data-id="q3-b6" data-hint="숫자">개입니다. 수입량 240개를 달성하기 위해 부과해야 할 관세는 **<input type="text" class="blank" data-answer="40|40달러" data-id="q3-b7" data-hint="숫자">달러**이며, 이때 국내 가격은 <input type="text" class="blank" data-answer="80|80달러" data-id="q3-b8" data-hint="숫자">달러로 상승합니다.
+                  </div>
+                </div>
+
+                <!-- 단계 3 -->
+                <div class="step-item">
+                  <div class="step-title"><span>📍</span> [단계 3] t+2기(추가 정책 도입) 가상 추론</div>
+                  <div class="step-content">
+                    t+1기 국내 생산량은 80개입니다. 만약 국내 생산량을 25% 증가(목표: 100개)시키려면 국내 가격이 100달러가 되어야 하므로 관세를 개당 **<input type="text" class="blank" data-answer="20|20달러" data-id="q3-b9" data-hint="숫자">달러** 추가 부과해야 합니다. 만약 생산자에게 개당 40달러의 보조금을 주면 국내 생산량은 <input type="text" class="blank" data-answer="120|120개" data-id="q3-b10" data-hint="숫자">개로 늘고 수입량은 200개가 되어 관세 수입은 t+1기 대비 **<input type="text" class="blank" data-answer="1600|1,600|1600달러|1,600달러" data-id="q3-b11" data-hint="숫자">달러** 감소합니다.
+                  </div>
+                </div>
+              </div>
+
+              <!-- 보기 박스 -->
+              <div class="view-card">
+                <div class="view-title">&lt; 보 기 &gt;</div>
+                <div class="view-options" style="font-size:0.9rem; line-height:1.5;">
+                  <div class="view-option-item">
+                    <strong>ㄱ.</strong> <span>(가)에는 '20' 이 들어간다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>ㄴ.</strong> <span>t기 수입량은 국내 생산량의 8배이다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>ㄷ.</strong> <span>㉠이 't+1기 대비 국내 생산량 25% 증가' 라면, (나)에는 '수입하는 X재에 개당 20달러 관세 추가 부과' 가 들어갈 수 있다.</span>
+                  </div>
+                  <div class="view-option-item">
+                    <strong>ㄹ.</strong> <span>㉠이 '국내 생산량 증가를 통한 t+1기 대비 관세 수입 800달러 감소' 라면, (나)에는 '국내 생산자에게 X재 개당 40달러의 보조금 지급' 이 들어갈 수 있다.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 오지선다 정답 선택 -->
+              <div class="answer-selection">
+                <h4 style="font-weight: 700;">정답 선택</h4>
+                <div class="choices-grid">
+                  <div>
+                    <input type="radio" name="quiz3Choice" id="q3-c1" value="1" class="choice-radio">
+                    <label for="q3-c1" class="choice-btn-label">① ㄱ, ㄴ</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz3Choice" id="q3-c2" value="2" class="choice-radio">
+                    <label for="q3-c2" class="choice-btn-label">② ㄱ, ㄷ</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz3Choice" id="q3-c3" value="3" class="choice-radio">
+                    <label for="q3-c3" class="choice-btn-label">③ ㄴ, ㄷ</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz3Choice" id="q3-c4" value="4" class="choice-radio">
+                    <label for="q3-c4" class="choice-btn-label">④ ㄴ, ㄹ</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="quiz3Choice" id="q3-c5" value="5" class="choice-radio">
+                    <label for="q3-c5" class="choice-btn-label">⑤ ㄷ, ㄹ</label>
+                  </div>
+                </div>
+                <button id="submitQuiz3Btn" class="submit-quiz-btn">정답 제출 및 해설 보기</button>
+              </div>
+
+              <!-- 해설 박스 -->
+              <div id="quiz3Explanation" class="explanation-box">
+                <h4>🎉 정답입니다! (선택한 답: ③ ㄴ, ㄷ)</h4>
+                <div class="explanation-text">
+                  <p style="font-weight: bold; margin-bottom: 8px;">[해설] 무역 정책의 효과 이해</p>
+                  <ul>
+                    <li><strong>{문제 분석}:</strong> t기에 갑국 X재 시장의 국내 가격은 40달러, 국내 생산량은 40개, 국내 소비량은 360개, 수입량은 320개입니다.</li>
+                    <li><strong>ㄴ (정답):</strong> t기에 국내 생산량은 40개, 수입량은 320개이므로 수입량은 국내 생산량의 8배입니다.</li>
+                    <li><strong>ㄷ (정답):</strong> t+1기에 국내 생산량은 80개입니다. t+2기에 갑국 정부가 수입하는 X재에 개당 20달러의 관세를 추가로 부과하면 국내 가격은 100달러이고, 국내 생산량은 100개이므로 t+1기 대비 t+2기에 국내 생산량은 25% 증가합니다.</li>
+                    <li><strong>ㄱ (오답):</strong> 갑국 X재 시장에서 t기의 수입량은 320개이고, t+1기의 수입량은 t기의 수입량 대비 25% 작으므로 240개입니다. X재의 국내 가격이 80달러인 수준에서 국내 소비량은 320개, 국내 생산량은 80개, 수입량이 240개이므로 관세 (가)는 40달러입니다.</li>
+                    <li><strong>ㄹ (오답):</strong> t+1기에 갑국 정부의 관세 수입은 9,600달러(=40달러×240개)입니다. t+2기에 갑국 정부가 국내 생산자에게 X재 개당 40달러의 보조금을 지급하면 국내 가격 80달러 수준에서 국내 생산량은 120개가 되고, 이때 수입량은 200개입니다. 이 경우 갑국 정부의 관세 수입은 8,000달러(=40달러×200개)이므로 t+1기 대비 t+2기에 관세 수입은 1,600달러 감소합니다.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="quiz3"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 푸터 정보 -->
+    <footer class="app-footer">
+      <p>© 2026 고등학교 경제 교과 연계 인터랙티브 활동지. 경제 자료실.</p>
+    </footer>
+  </div>
+
+  <!-- 알림 토스트 메시지 -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    /* ==========================================================================
+       무역 원리와 무역 정책 실전문제 분석지 - 클라이언트 로직
+       ========================================================================== */
+
+    // 1. 상태 전역 변수
+    let solvedBlanks = new Set();
+    let activeTab = "quiz1"; // quiz1, quiz2, quiz3
+
+    // 2. DOM 엘리먼트 캐싱
+    const body = document.body;
+    const tabButtons = document.querySelectorAll(".topic-btn:not(.back-btn)");
+    const lessonSections = document.querySelectorAll(".lesson-section");
+    const allBlanks = document.querySelectorAll("input.blank");
+    const progressBarFill = document.getElementById("progressBarFill");
+    const progressText = document.getElementById("progressText");
+    const modeToggle = document.getElementById("modeToggle");
+    const printBtn = document.getElementById("printBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const toast = document.getElementById("toast");
+
+    // 3. 단어 바구니 데이터 세팅
+    const tabWordBanks = {
+      quiz1: {
+        answers: ["45", "10"],
+        distractors: ["50", "30", "60", "300", "1000", "Q_4", "Q_2", "Q_0", "Q_1", "Q_3", "Q_0Q_1", "P_1", "P_2", "갑국", "을국", "증가", "감소", "효율성"]
+      },
+      quiz2: {
+        answers: ["P_0", "P_1", "Q_3", "Q_2", "Q_0Q_3", "Q_1Q_2", "Q_0", "Q_1"],
+        distractors: ["P_2", "Q_4", "Q_2", "Q_0", "Q_1", "Q_3", "Q_0Q_1", "증가", "감소"]
+      },
+      quiz3: {
+        answers: ["40", "360", "320", "8", "240", "80", "20", "120", "1600"],
+        distractors: ["30", "60", "300", "1000", "갑국", "을국", "증가", "감소"]
+      }
+    };
+
+    // 4. 애플리케이션 초기화 및 이벤트 연결
+    document.addEventListener("DOMContentLoaded", () => {
+      loadFromLocalStorage();
+      initBlanks();
+      initTabNavigation();
+      initQuizSimulation();
+
+      modeToggle.addEventListener("change", handleModeChange);
+      printBtn.addEventListener("click", () => window.print());
+      resetBtn.addEventListener("click", resetWorkbook);
+
+      switchTab("quiz1");
+      updateProgress();
+    });
+
+    // 5. 탭 변경 내비게이션
+    function initTabNavigation() {
+      tabButtons.forEach((btn) => {
+        const tabId = btn.getAttribute("data-tab");
+        if (tabId) {
+          btn.addEventListener("click", () => switchTab(tabId));
+        }
+      });
+
+      // 단축키 바인딩 (1~3번 키로 탭 스위칭)
+      document.addEventListener("keydown", (e) => {
+        if (["TEXTAREA", "INPUT"].includes(document.activeElement.tagName)) return;
+        
+        const tabKeys = {
+          "1": "quiz1",
+          "2": "quiz2",
+          "3": "quiz3"
+        };
+        if (tabKeys[e.key]) {
+          switchTab(tabKeys[e.key]);
+        }
+      });
+    }
+
+    function switchTab(tabId) {
+      activeTab = tabId;
+
+      tabButtons.forEach((btn) => {
+        if (btn.getAttribute("data-tab") === tabId) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      lessonSections.forEach((sec) => {
+        if (sec.id === `tab-${tabId}`) {
+          sec.classList.add("active");
+        } else {
+          sec.classList.remove("active");
+        }
+      });
+
+      // 바디 테마 클래스 스위칭
+      body.className = body.className.replace(/theme-\S+/g, "");
+      body.classList.add(`theme-${tabId}`);
+
+      renderWordChips(tabId);
+    }
+
+    // 6. 단어 칩 힌트 렌더링
+    function renderWordChips(tabId) {
+      const container = document.querySelector(`.word-chips[data-tab="${tabId}"]`);
+      if (!container) return;
+
+      container.innerHTML = "";
+      const tabData = tabWordBanks[tabId];
+      if (!tabData) return;
+
+      const combined = [...tabData.answers, ...tabData.distractors];
+      const shuffled = shuffle(combined);
+
+      shuffled.forEach((word) => {
+        const chip = document.createElement("div");
+        chip.className = "word-chip";
+        chip.innerText = word;
+        chip.setAttribute("data-word", word);
+        container.appendChild(chip);
+      });
+
+      updateWordChipsStatus(tabId);
+    }
+
+    function shuffle(array) {
+      const result = [...array];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    function updateWordChipsStatus(tabId) {
+      const container = document.querySelector(`.word-chips[data-tab="${tabId}"]`);
+      if (!container) return;
+
+      const chips = container.querySelectorAll(".word-chip");
+      const tabBlanks = document.querySelectorAll(`#tab-${tabId} .blank`);
+
+      const solvedCounts = {};
+      tabBlanks.forEach((blank) => {
+        const blankId = blank.getAttribute("data-id");
+        const answer = blank.getAttribute("data-answer");
+        if (solvedBlanks.has(blankId)) {
+          // 다중 정답의 경우 첫 번째 값을 정답 매핑 키로 활용
+          const standardAnswer = answer.split("|")[0];
+          solvedCounts[standardAnswer] = (solvedCounts[standardAnswer] || 0) + 1;
+        }
+      });
+
+      const tracker = { ...solvedCounts };
+
+      chips.forEach((chip) => {
+        const word = chip.getAttribute("data-word");
+        if (tracker[word] > 0) {
+          chip.classList.add("used");
+          tracker[word]--;
+        } else {
+          chip.classList.remove("used");
+        }
+      });
+    }
+
+    // 7. 빈칸 인풋 이벤트 제어 & 타이핑 채점
+    function normalizeText(str) {
+      if (!str) return "";
+      let s = str.toLowerCase();
+      s = s.replace(/([a-z0-9_~₀₁₂₃₄₅₆₇₈₉])\s*등$/, "$1");
+      s = s.replace(/\s+/g, "");
+      s = s.replace(/[~\-_,]/g, "");
+      s = s.replace(/₀/g, "0")
+           .replace(/₁/g, "1")
+           .replace(/₂/g, "2")
+           .replace(/₃/g, "3")
+           .replace(/₄/g, "4")
+           .replace(/₅/g, "5")
+           .replace(/₆/g, "6")
+           .replace(/₇/g, "7")
+           .replace(/₈/g, "8")
+           .replace(/₉/g, "9");
+      return s;
+    }
+
+    function initBlanks() {
+      allBlanks.forEach((blank) => {
+        const blankId = blank.getAttribute("data-id");
+        const answer = blank.getAttribute("data-answer");
+        const hint = blank.getAttribute("data-hint");
+
+        blank.setAttribute("autocomplete", "off");
+        const standardAnswer = answer.split("|")[0];
+        blank.style.width = (standardAnswer.length * 20 + 36) + "px";
+
+        if (solvedBlanks.has(blankId)) {
+          blank.classList.add("revealed");
+          blank.value = standardAnswer;
+          blank.readOnly = false;
+        } else {
+          blank.value = "";
+          blank.placeholder = hint;
+          blank.readOnly = false;
+        }
+
+        blank.addEventListener("input", (e) => {
+          if (body.classList.contains("mode-teacher")) return;
+          const userInput = e.target.value.trim();
+          const expectedList = answer.split("|").map(ans => ans.trim());
+
+          const normInput = normalizeText(userInput);
+          const isCorrect = expectedList.some(ans => normalizeText(ans) === normInput);
+
+          if (isCorrect) {
+            revealBlank(blank, blankId, standardAnswer);
+          } else {
+            if (blank.classList.contains("revealed")) {
+              unrevealBlank(blank, blankId);
+            }
+          }
+        });
+
+        blank.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const userInput = e.target.value.trim();
+            const expectedList = answer.split("|").map(ans => ans.trim());
+            const normInput = normalizeText(userInput);
+            const isCorrect = expectedList.some(ans => normalizeText(ans) === normInput);
+
+            if (!isCorrect && userInput !== "") {
+              blank.classList.add("shake");
+              showToast("입력한 단어가 정답과 다릅니다. 다시 생각해보세요! ❌", false);
+              setTimeout(() => blank.classList.remove("shake"), 400);
+            }
+          }
+        });
+      });
+    }
+
+    function revealBlank(blank, blankId, answer) {
+      if (blank.classList.contains("revealed")) return;
+      
+      blank.classList.add("revealed");
+      blank.value = answer;
+      blank.readOnly = false;
+      solvedBlanks.add(blankId);
+
+      triggerSparkles(blank);
+
+      saveToLocalStorage();
+      updateProgress();
+      updateWordChipsStatus(activeTab);
+      showToast("참 잘했습니다! 정답입니다! 👏", true);
+    }
+
+    function unrevealBlank(blank, blankId) {
+      if (!blank.classList.contains("revealed")) return;
+
+      blank.classList.remove("revealed");
+      solvedBlanks.delete(blankId);
+
+      saveToLocalStorage();
+      updateProgress();
+      updateWordChipsStatus(activeTab);
+    }
+
+    function triggerSparkles(element) {
+      const rect = element.getBoundingClientRect();
+      const container = document.body;
+
+      for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle-particle";
+
+        const colors = ["#0f766e", "#1e3a8a", "#b91c1c", "#7e22ce", "#047857", "#b45309"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        sparkle.style.backgroundColor = color;
+        const size = Math.random() * 8 + 4;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+
+        const startX = rect.left + rect.width / 2 + window.scrollX;
+        const startY = rect.top + rect.height / 2 + window.scrollY;
+
+        sparkle.style.left = `${startX}px`;
+        sparkle.style.top = `${startY}px`;
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 90 + 30;
+        const destX = Math.cos(angle) * distance;
+        const destY = Math.sin(angle) * distance;
+
+        sparkle.style.setProperty("--dest-x", `${destX}px`);
+        sparkle.style.setProperty("--dest-y", `${destY}px`);
+
+        container.appendChild(sparkle);
+        sparkle.addEventListener("animationend", () => sparkle.remove());
+      }
+    }
+
+    // 8. 교사용/학생용 모드 토글
+    function handleModeChange(e) {
+      const isTeacher = e.target.checked;
+      const labelStudent = document.querySelector(".label-student");
+      const labelTeacher = document.querySelector(".label-teacher");
+
+      if (isTeacher) {
+        const password = prompt("교사용 모드 활성화를 위한 비밀번호를 입력해주세요:");
+        if (password !== "경제교사") {
+          showToast("비밀번호가 올바르지 않습니다. ❌", false);
+          e.target.checked = false;
+          return;
+        }
+
+        body.classList.remove("mode-student");
+        body.classList.add("mode-teacher");
+        labelStudent.classList.remove("active");
+        labelTeacher.classList.add("active");
+
+        allBlanks.forEach((blank) => {
+          const rawAnswer = blank.getAttribute("data-answer");
+          blank.value = rawAnswer.split("|")[0];
+          blank.readOnly = true;
+        });
+
+        progressBarFill.style.width = "100%";
+        progressText.innerText = "100%";
+        showToast("모범 답안 모드가 활성화되었습니다.");
+      } else {
+        body.classList.remove("mode-teacher");
+        body.classList.add("mode-student");
+        labelTeacher.classList.remove("active");
+        labelStudent.classList.add("active");
+
+        allBlanks.forEach((blank) => {
+          const blankId = blank.getAttribute("data-id");
+          const answer = blank.getAttribute("data-answer");
+          const hint = blank.getAttribute("data-hint");
+          const standardAnswer = answer.split("|")[0];
+
+          if (solvedBlanks.has(blankId)) {
+            blank.classList.add("revealed");
+            blank.value = standardAnswer;
+            blank.readOnly = false;
+          } else {
+            blank.classList.remove("revealed");
+            blank.value = "";
+            blank.placeholder = hint;
+            blank.readOnly = false;
+          }
+        });
+
+        updateProgress();
+        renderWordChips(activeTab);
+        showToast("학생용 자습 모드로 전환되었습니다.");
+      }
+    }
+
+    function updateProgress() {
+      if (body.classList.contains("mode-teacher")) return;
+
+      const percent = Math.round((solvedBlanks.size / allBlanks.length) * 100) || 0;
+      progressBarFill.style.width = `${percent}%`;
+      progressText.innerText = `${percent}%`;
+    }
+
+    function showToast(message, isSuccess = true) {
+      toast.innerText = message;
+      toast.className = `toast show ${isSuccess ? "success" : "error"}`;
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    function resetWorkbook() {
+      if (confirm("정말로 실전 문제 풀이 내역을 초기화하시겠습니까? ⚠️")) {
+        solvedBlanks.clear();
+        saveToLocalStorage();
+        location.reload();
+      }
+    }
+
+    // 9. 로컬 스토리지 보존
+    function saveToLocalStorage() {
+      localStorage.setItem("trade_quiz_solved_blanks", JSON.stringify(Array.from(solvedBlanks)));
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const solved = localStorage.getItem("trade_quiz_solved_blanks");
+        if (solved) {
+          solvedBlanks = new Set(JSON.parse(solved));
+        }
+      } catch (e) {
+        console.error("Local storage load fail", e);
+      }
+    }
+
+    // 10. 수능 실전 퀴즈 & 시뮬레이터 제어
+    function initQuizSimulation() {
+      const submitQuizBtn = document.getElementById("submitQuizBtn");
+      if (submitQuizBtn) {
+        submitQuizBtn.addEventListener("click", () => {
+          const selected = document.querySelector('input[name="quizChoice"]:checked');
+          if (!selected) {
+            showToast("정답 보기 중 하나를 선택해주세요! ⚠️", false);
+            return;
+          }
+
+          const quizExplanation = document.getElementById("quizExplanation");
+          if (selected.value === "3") {
+            quizExplanation.classList.add("visible");
+            showToast("수능 실전 문제의 정답을 정확히 찾아냈습니다! 💯", true);
+          } else {
+            quizExplanation.classList.remove("visible");
+            showToast("선택한 답은 오답입니다. 다시 분석해보세요! ❌", false);
+          }
+        });
+      }
+
+      const submitQuiz2Btn = document.getElementById("submitQuiz2Btn");
+      if (submitQuiz2Btn) {
+        submitQuiz2Btn.addEventListener("click", () => {
+          const selected = document.querySelector('input[name="quiz2Choice"]:checked');
+          if (!selected) {
+            showToast("정답 보기 중 하나를 선택해주세요! ⚠️", false);
+            return;
+          }
+
+          const quiz2Explanation = document.getElementById("quiz2Explanation");
+          if (selected.value === "4") {
+            quiz2Explanation.classList.add("visible");
+            showToast("수능 실전 문제의 정답을 정확히 찾아냈습니다! 💯", true);
+          } else {
+            quiz2Explanation.classList.remove("visible");
+            showToast("선택한 답은 오답입니다. 다시 분석해보세요! ❌", false);
+          }
+        });
+      }
+
+      const submitQuiz3Btn = document.getElementById("submitQuiz3Btn");
+      if (submitQuiz3Btn) {
+        submitQuiz3Btn.addEventListener("click", () => {
+          const selected = document.querySelector('input[name="quiz3Choice"]:checked');
+          if (!selected) {
+            showToast("정답 보기 중 하나를 선택해주세요! ⚠️", false);
+            return;
+          }
+
+          const quiz3Explanation = document.getElementById("quiz3Explanation");
+          if (selected.value === "3") {
+            quiz3Explanation.classList.add("visible");
+            showToast("수능 실전 문제의 정답을 정확히 찾아냈습니다! 💯", true);
+          } else {
+            quiz3Explanation.classList.remove("visible");
+            showToast("선택한 답은 오답입니다. 다시 분석해보세요! ❌", false);
+          }
+        });
+      }
+
+      // Slider simulation in Quiz 1
+      const pwSlider = document.getElementById("pwSlider");
+      if (pwSlider) {
+        pwSlider.addEventListener("input", (e) => {
+          const val = parseInt(e.target.value);
+          updateQuizSimulation(val);
+        });
+        updateQuizSimulation(parseInt(pwSlider.value));
+      }
+    }
+
+    function updateQuizSimulation(P) {
+      const pwSlider = document.getElementById("pwSlider");
+      const pwDisplay = document.getElementById("pwDisplay");
+      const simStatus = document.getElementById("simStatus");
+
+      const gapPriceLine = document.getElementById("gapPriceLine");
+      const gapSc = document.getElementById("gapSc");
+      const gapDc = document.getElementById("gapDc");
+      const gapExcessRect = document.getElementById("gapExcessRect");
+
+      const eulPriceLine = document.getElementById("eulPriceLine");
+      const eulSc = document.getElementById("eulSc");
+      const eulDc = document.getElementById("eulDc");
+      const eulExcessRect = document.getElementById("eulExcessRect");
+
+      if (!pwDisplay) return;
+
+      pwDisplay.innerText = `${P} 달러`;
+
+      const gapY = 260 - 4 * P;
+      const gapXD = 180 - 2 * P; 
+      const gapXS = 20 + 2 * P;   
+
+      gapPriceLine.setAttribute("y1", gapY);
+      gapPriceLine.setAttribute("y2", gapY);
+      gapSc.setAttribute("cx", gapXS);
+      gapSc.setAttribute("cy", gapY);
+      gapDc.setAttribute("cx", gapXD);
+      gapDc.setAttribute("cy", gapY);
+
+      if (P > 40) { 
+        gapExcessRect.setAttribute("x", gapXD);
+        gapExcessRect.setAttribute("y", gapY);
+        gapExcessRect.setAttribute("width", gapXS - gapXD);
+        gapExcessRect.setAttribute("height", 100 - gapY); 
+        gapExcessRect.setAttribute("fill", "rgba(239, 68, 68, 0.15)");
+      } else if (P < 40) { 
+        gapExcessRect.setAttribute("x", gapXS);
+        gapExcessRect.setAttribute("y", 100);
+        gapExcessRect.setAttribute("width", gapXD - gapXS);
+        gapExcessRect.setAttribute("height", gapY - 100);
+        gapExcessRect.setAttribute("fill", "rgba(59, 130, 246, 0.15)");
+      } else {
+        gapExcessRect.setAttribute("width", 0);
+        gapExcessRect.setAttribute("height", 0);
+      }
+
+      const eulY = 260 - 4 * P;
+      const eulXD = 220 - 2 * P; 
+      const eulXS = 20 + 2 * P;   
+
+      eulPriceLine.setAttribute("y1", eulY);
+      eulPriceLine.setAttribute("y2", eulY);
+      eulSc.setAttribute("cx", eulXS);
+      eulSc.setAttribute("cy", eulY);
+      eulDc.setAttribute("cx", eulXD);
+      eulDc.setAttribute("cy", eulY);
+
+      if (P > 50) { 
+        eulExcessRect.setAttribute("x", eulXD);
+        eulExcessRect.setAttribute("y", eulY);
+        eulExcessRect.setAttribute("width", eulXS - eulXD);
+        eulExcessRect.setAttribute("height", 60 - eulY); 
+        eulExcessRect.setAttribute("fill", "rgba(239, 68, 68, 0.15)");
+      } else if (P < 50) { 
+        eulExcessRect.setAttribute("x", eulXS);
+        eulExcessRect.setAttribute("y", 60); 
+        eulExcessRect.setAttribute("width", eulXD - eulXS);
+        eulExcessRect.setAttribute("height", eulY - 60);
+        eulExcessRect.setAttribute("fill", "rgba(59, 130, 246, 0.15)");
+      } else {
+        eulExcessRect.setAttribute("width", 0);
+        eulExcessRect.setAttribute("height", 0);
+      }
+
+      const gapExport = Math.max(0, 2 * P - 80);
+      const eulImport = Math.max(0, 100 - 2 * P);
+
+      if (P === 45) {
+        simStatus.className = "sim-status-box balanced";
+        simStatus.innerHTML = `<strong>✨ 무역 균형 도달! (국제 가격: 45달러)</strong><br>
+          • <strong>갑국:</strong> 국내 가격(40)보다 높아 <strong>10개 수출</strong> (초과공급: 45 - 35 = 10)<br>
+          • <strong>을국:</strong> 국내 가격(50)보다 낮아 <strong>10개 수입</strong> (초과수요: 55 - 45 = 10)<br>
+          • 갑국의 수출량과 을국의 수입량이 일치하므로 시장 균형이 성립합니다! 양국 모두 총잉여가 증가합니다.`;
+      } else {
+        simStatus.className = "sim-status-box";
+        let gapTxt = P > 40 ? `초과 공급(수출 가능량): ${gapExport}개` : (P < 40 ? `초과 수요(수입 필요량): ${80 - 2*P}개` : `국내 균형 (무역량 0)`);
+        let eulTxt = P > 50 ? `초과 공급(수출 가능량): ${2*P - 100}개` : (P < 50 ? `초과 수요(수입 필요량): ${eulImport}개` : `국내 균형 (무역량 0)`);
+        
+        simStatus.innerHTML = `<strong>현재 가격: ${P}달러 (무역 불균형 상태)</strong><br>
+          • <strong>갑국:</strong> ${gapTxt}<br>
+          • <strong>을국:</strong> ${eulTxt}<br>
+          <span style="color:#e11d48; font-size:0.85rem;">💡 슬라이더를 45달러로 맞춰 균형점을 확인해보세요!</span>`;
+      }
+    }
+  </script>
+</body>
+</html>
