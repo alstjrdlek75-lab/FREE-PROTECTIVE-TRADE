@@ -1,0 +1,3606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="고등학교 경제 V-2. 무역 원리와 무역 정책 인터랙티브 학습 활동지">
+  <title>🌐 V. 국제 경제 - 02. 무역 원리와 무역 정책</title>
+  
+  <!-- Pretendard Variable 및 Google Fonts Outfit, Nanum Pen Script, Font Awesome CDN 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Urbanist:ital,wght@0,300;0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       1. 기본 테마 변수 및 초기화 (라이트 모드 & 모던 프리미엄 스타일)
+       ========================================================================== */
+    :root {
+      --transition-speed: 0.3s;
+      --transition-fast: 0.15s;
+      --text-main: #1e293b; /* Slate 800 */
+      --text-muted: #475569; /* Slate 600 */
+      --text-dark: #94a3b8; /* Slate 400 */
+      --card-bg: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+      --card-bg-solid: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.08);
+      
+      /* 기본 테마 컬러 (Teal) */
+      --accent: #0f766e; /* Teal 700 */
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+      
+      /* 개별 탭별 컬러 브랜드 (라이트모드 최적화) */
+      --free-color: #1e3a8a; /* Deep Blue */
+      --free-light: rgba(30, 58, 138, 0.08);
+      --free-shadow: rgba(30, 58, 138, 0.15);
+
+      --prot-color: #b91c1c; /* Rich Red */
+      --prot-light: rgba(185, 28, 28, 0.08);
+      --prot-shadow: rgba(185, 28, 28, 0.15);
+
+      --compare-color: #334155; /* Slate Gray */
+      --compare-light: rgba(51, 65, 85, 0.08);
+      --compare-shadow: rgba(51, 65, 85, 0.15);
+
+      --trends-color: #047857; /* Emerald Green */
+      --trends-light: rgba(4, 120, 87, 0.08);
+      --trends-shadow: rgba(4, 120, 87, 0.15);
+
+      --essay-color: #581c87; /* Purple */
+      --essay-light: rgba(88, 28, 135, 0.08);
+      --essay-shadow: rgba(88, 28, 135, 0.15);
+
+      --danger-color: #b91c1c;
+      --danger-light: rgba(185, 28, 28, 0.08);
+    }
+
+    /* 동적 테마 맵핑 (JS 연동) */
+    body.theme-intro {
+      --accent: #0f766e;
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+    }
+
+    body.theme-freetrade {
+      --accent: var(--free-color);
+      --accent-light: var(--free-light);
+      --accent-shadow: var(--free-shadow);
+      --bg-gradient: linear-gradient(135deg, #eff6ff 0%, #e2e8f0 100%);
+    }
+
+    body.theme-protection {
+      --accent: var(--prot-color);
+      --accent-light: var(--prot-light);
+      --accent-shadow: var(--prot-shadow);
+      --bg-gradient: linear-gradient(135deg, #fef2f2 0%, #e2e8f0 100%);
+    }
+
+    body.theme-compare {
+      --accent: var(--compare-color);
+      --accent-light: var(--compare-light);
+      --accent-shadow: var(--compare-shadow);
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+
+    body.theme-trends {
+      --accent: var(--trends-color);
+      --accent-light: var(--trends-light);
+      --accent-shadow: var(--trends-shadow);
+      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e2e8f0 100%);
+    }
+
+    body.theme-essay {
+      --accent: var(--essay-color);
+      --accent-light: var(--essay-light);
+      --accent-shadow: var(--essay-shadow);
+      --bg-gradient: linear-gradient(135deg, #faf5ff 0%, #e2e8f0 100%);
+    }
+
+    /* 초기화 및 기본 스타일 설정 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Pretendard Variable", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--text-main);
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-gradient);
+      transition: background var(--transition-speed) ease;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       2. 레이아웃 컨테이너 & 헤더
+       ========================================================================== */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 10;
+    }
+
+    .title-banner {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .badge-topic {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all var(--transition-speed);
+      letter-spacing: 0.05em;
+    }
+
+    .title-banner h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #0f172a 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      transition: background-image var(--transition-speed);
+    }
+
+    .title-banner p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       3. 컨트롤바 (상단 내비게이션 탭 & 워크북 설정)
+       ========================================================================== */
+    .control-bar {
+      display: flex;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.2rem 1.8rem;
+      box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.04);
+      width: 100%;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    /* 탭 디자인 */
+    .topic-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 0.35rem;
+      border-radius: 16px;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .topic-btn {
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #64748b; /* Slate 500 */
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .topic-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .topic-btn.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05),
+                  0 0 10px var(--accent-light);
+    }
+
+    /* 설정 그룹 */
+    .settings-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* 완성도 프로그래스 바 */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .progress-text-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-bg {
+      width: 100px;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 10px;
+      transition: width 0.3s ease, background-color var(--transition-speed) ease;
+    }
+
+    .progress-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--text-main);
+      min-width: 35px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* 학생/교사용 모드 토글 토글러 */
+    .mode-switch {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .mode-label {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #94a3b8;
+      transition: color var(--transition-speed);
+    }
+
+    .mode-label.active {
+      color: var(--text-main);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* 제어 액션 버튼 */
+    .btn-action {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .btn-action:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    .btn-action:active {
+      transform: translateY(0);
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ==========================================================================
+       4. 메인 대시보드 그리드 구조
+       ========================================================================== */
+    .content-wrapper {
+      position: relative;
+      min-height: 500px;
+    }
+
+    /* 본문 섹션 */
+    .lesson-section {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .lesson-section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 대단원 소개 슬로건 패널 */
+    .section-slogan {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-left: 6px solid var(--accent);
+      border-radius: 16px;
+      padding: 1.3rem 1.8rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.01);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      transition: border-color var(--transition-speed) ease;
+    }
+
+    .slogan-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      line-height: 1.4;
+      color: #0f172a;
+      word-break: keep-all;
+    }
+
+    .slogan-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+
+    /* 2단 반응형 그리드 */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card-half {
+      grid-column: span 1;
+    }
+
+    .card-full {
+      grid-column: span 2;
+    }
+
+    /* 개별 대시보드 디자인 카드 */
+    .dashboard-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px var(--accent-shadow);
+    }
+
+    /* 카드 블록 헤더 타이틀 */
+    .block-title {
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #0f172a;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 0.6rem;
+    }
+
+    .block-title span.badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 800;
+      margin-left: 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .block-title span.badge.danger {
+      background: var(--danger-light);
+      color: var(--danger-color);
+      border-color: rgba(185, 28, 28, 0.1);
+    }
+
+    .block-title span.badge.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: #d97706;
+      border-color: rgba(245, 158, 11, 0.08);
+    }
+
+    /* 내용 텍스트 세로 스택 */
+    .card-content-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .definition-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 0.9rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .item-label {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .item-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #1e293b;
+      word-break: keep-all;
+    }
+
+    /* 컬러 분기 대비 테두리 스타일 */
+    .contrast-success {
+      border-left: 4px solid var(--free-color);
+      background: rgba(30, 58, 138, 0.02);
+    }
+    .contrast-success .item-label { color: var(--free-color); }
+
+    .contrast-failure {
+      border-left: 4px solid var(--prot-color);
+      background: rgba(185, 28, 28, 0.02);
+    }
+    .contrast-failure .item-label { color: var(--prot-color); }
+
+    /* ==========================================================================
+       5. 3단 타일 및 도전 항목 (3-Card Row Layout)
+       ========================================================================== */
+    .cards-sub-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .challenge-subcard {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .challenge-subcard:hover {
+      background: #ffffff;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.03);
+      border-color: var(--accent);
+    }
+
+    .subcard-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(0, 0, 0, 0.04);
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      line-height: 1;
+    }
+
+    .challenge-subcard h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 0.3rem;
+      border-bottom: 2px solid var(--accent-light);
+      padding-bottom: 0.4rem;
+      align-self: flex-start;
+    }
+
+    .challenge-subcard p {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: #475569;
+      word-break: keep-all;
+    }
+
+    /* ==========================================================================
+       6. 3단 타일 카드 리스트 (Tab 3 보호 무역 사유)
+       ========================================================================== */
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .tile-card {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .tile-card:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    }
+
+    .tile-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      border: 1px solid rgba(0,0,0,0.02);
+      color: var(--accent);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .tile-card:hover .tile-icon-box {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 15px var(--accent-shadow);
+    }
+
+    .tile-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .tile-desc {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #475569;
+    }
+
+    /* ==========================================================================
+       7. 경제 사상가 탐구 아바타
+       ========================================================================== */
+    .philosopher-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .p-flex-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 1rem 1.6rem;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .p-flex-item:hover {
+      transform: translateX(6px);
+      background: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .p-avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .p-avatar-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .p-flex-item:hover .p-avatar-img {
+      transform: scale(1.08) rotate(3deg);
+    }
+
+    .p-avatar-name {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .p-bubble {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.7;
+      flex: 1;
+      word-break: keep-all;
+    }
+
+    /* ==========================================================================
+       8. 단원 도입 탭 비주얼 가이드
+       ========================================================================== */
+    .intro-dashboard {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.5rem;
+    }
+
+    .intro-guide-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .intro-guide-card h3 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .guide-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .guide-list li {
+      font-size: 1.02rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: #475569;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .guide-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+    }
+
+    .intro-banner-box {
+      background: var(--accent-light);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .banner-icon {
+      font-size: 1.5rem;
+    }
+
+    .intro-banner-box p {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.4;
+    }
+
+    .intro-visual-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-split {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .split-side {
+      padding: 1.3rem;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .split-side:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    }
+
+    .split-free {
+      border-left: 5px solid var(--free-color);
+      background: rgba(30, 58, 138, 0.01);
+    }
+    .split-free h4 { color: var(--free-color); }
+
+    .split-protection {
+      border-left: 5px solid var(--prot-color);
+      background: rgba(185, 28, 28, 0.01);
+    }
+    .split-protection h4 { color: var(--prot-color); }
+
+    .split-icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .split-side h4 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+
+    .split-side p {
+      font-size: 1.2rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       9. 스플릿 레이아웃 (텍스트 + SVG 일러스트레이션)
+       ========================================================================== */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .split-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .split-bullet {
+      background: rgba(255, 255, 255, 0.5);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.3rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #334155;
+      transition: all 0.3s ease;
+      border-top: 1px solid rgba(0,0,0,0.01);
+      border-right: 1px solid rgba(0,0,0,0.01);
+      border-bottom: 1px solid rgba(0,0,0,0.01);
+    }
+
+    .split-bullet:hover {
+      background: #ffffff;
+      transform: translateX(5px);
+    }
+
+    .split-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .svg-container {
+      width: 100%;
+      max-width: 260px;
+      height: auto;
+      filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.08));
+    }
+
+    /* SVG 애니메이션 요소 클래스 */
+    .anim-rotate {
+      transform-origin: center;
+      animation: rotateGear 12s linear infinite;
+    }
+    .anim-pulse {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes rotateGear {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.85; }
+    }
+
+    /* ==========================================================================
+       10. 프리미엄 정보 테이블 디자인
+       ========================================================================== */
+    .table-container {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background: rgba(241, 245, 249, 0.9);
+      color: var(--accent);
+      font-weight: 800;
+      padding: 1.1rem 1.5rem;
+      font-size: 1.15rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      letter-spacing: 0.02em;
+    }
+
+    .th-free {
+      border-bottom-color: var(--free-color) !important;
+      color: var(--free-color) !important;
+    }
+
+    .th-prot {
+      border-bottom-color: var(--prot-color) !important;
+      color: var(--prot-color) !important;
+    }
+
+    .comparison-table td {
+      padding: 1.1rem 1.5rem;
+      font-size: 1.12rem;
+      color: #334155;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      line-height: 1.7;
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tbody tr {
+      transition: background-color 0.2s ease;
+    }
+
+    .comparison-table tbody tr:hover {
+      background-color: #ffffff;
+    }
+
+    .td-label {
+      font-weight: 800;
+      color: #0f172a;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .td-preset {
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* 테이블 행 뱃지 */
+    .table-badge {
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      display: inline-block;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+    .badge-tariff {
+      background: rgba(217, 119, 6, 0.1);
+      color: #b45309;
+    }
+    .badge-nontariff {
+      background: rgba(147, 51, 234, 0.1);
+      color: #7e22ce;
+    }
+
+    /* ==========================================================================
+       11. 인터랙티브 빈칸 (Blank) - 직접 타이핑 인풋 방식
+       ========================================================================== */
+    input.blank {
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.03);
+      color: var(--text-main);
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      padding: 0 8px;
+      margin: 0 4px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-align: center;
+      vertical-align: middle;
+      height: 2.0rem;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    input.blank:focus {
+      border-color: var(--accent);
+      background-color: #ffffff;
+      box-shadow: 0 0 8px var(--accent-light);
+    }
+
+    input.blank::placeholder {
+      color: #94a3b8;
+      opacity: 0.7;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    input.blank.revealed {
+      background-color: var(--accent) !important;
+      color: #ffffff !important; /* Premium white text over colored background */
+      border: 2px solid var(--accent) !important;
+      box-shadow: 0 4px 10px var(--accent-shadow);
+    }
+
+    /* Widen line heights globally in lesson sections containing blanks to avoid line wrap overlap */
+    .lesson-section .item-text, 
+    .lesson-section .bullet-content, 
+    .lesson-section .split-bullet, 
+    .lesson-section .tile-desc, 
+    .lesson-section td, 
+    .lesson-section li {
+      line-height: 2.0 !important;
+    }
+
+    /* 교사용 모드 정답 폰트 오버라이드 */
+    .mode-teacher input.blank {
+      background-color: transparent !important;
+      color: #dc2626 !important; /* Rich Red handwriting ink style */
+      font-family: 'Nanum Pen Script', cursive, sans-serif !important;
+      font-size: 1.85rem !important;
+      font-weight: 500 !important;
+      border: none !important;
+      border-bottom: 2px dashed rgba(220, 38, 38, 0.3) !important;
+      border-radius: 0 !important;
+      padding: 0 6px !important;
+      cursor: default;
+      height: auto !important;
+      line-height: inherit !important;
+      box-shadow: none !important;
+      vertical-align: baseline;
+    }
+
+    input.blank.shake {
+      border-color: var(--danger-color) !important;
+      background-color: var(--danger-light) !important;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes revealPop {
+      0% { transform: scale(0.92); }
+      70% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* ==========================================================================
+       12. 단어 바구니 (Word chips list) - 힌트 제공용
+       ========================================================================== */
+    .word-bank-wrapper {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .bank-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+
+    .word-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .word-chip {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 0.45rem 0.9rem;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: default;
+      user-select: none;
+      transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .word-chip.used {
+      opacity: 0.25;
+      border-style: dashed;
+      background-color: #f1f5f9;
+      text-decoration: line-through;
+    }
+
+    /* ==========================================================================
+       13. 주관식 토론 에세이 & 성과 체크리스트
+       ========================================================================== */
+    .essay-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .discussion-box-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .q-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid rgba(0,0,0,0.02);
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .q-header h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    .essay-textarea-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .essay-textarea-wrapper textarea {
+      width: 100%;
+      min-height: 110px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 1rem;
+      color: #1e293b;
+      font-size: 1rem;
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      transition: all 0.25s ease;
+    }
+
+    .essay-textarea-wrapper textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #ffffff;
+      box-shadow: 0 0 10px var(--accent-light);
+    }
+
+    .essay-textarea-wrapper textarea[readonly] {
+      background: rgba(0,0,0,0.02);
+      border-color: rgba(0, 0, 0, 0.05);
+      color: #dc2626;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 1.6rem;
+      cursor: not-allowed;
+    }
+
+    /* 자가진단 항목 */
+    .checklist-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      cursor: pointer;
+    }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      margin-top: 0.2rem;
+      cursor: pointer;
+    }
+
+    .checklist-text {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.5;
+      user-select: none;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       14. 불릿 형태 리스트 가로 배치 (Tab 2 자유무역 성과)
+       ========================================================================== */
+    .bullet-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .bullet-item {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .bullet-item:hover {
+      transform: translateX(6px);
+      background: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .bullet-index {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .bullet-content {
+      font-size: 1.05rem;
+      color: #334155;
+      line-height: 1.6;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       15. 피드백 요소를 위한 부가 스타일
+       ========================================================================== */
+    .sparkle-particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: sparkleExplosion 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes sparkleExplosion {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dest-x), var(--dest-y)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translate(-50%, 50px);
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      z-index: 999;
+      border: 1px solid rgba(0,0,0,0.05);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .app-footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      margin-top: 2rem;
+    }
+
+    /* ==========================================================================
+       16. 모달 다이얼로그 (학자 상세 정보 카드)
+       ========================================================================== */
+    .thinker-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .thinker-modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .thinker-modal-content {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .thinker-modal.show .thinker-modal-content {
+      transform: scale(1);
+    }
+
+    .thinker-modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .thinker-modal-close:hover {
+      color: #0f172a;
+    }
+
+    .thinker-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 1rem;
+    }
+
+    .modal-thinker-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    #modalThinkerName {
+      font-size: 1.3rem;
+      font-weight: 950;
+      color: #0f172a;
+    }
+
+    .modal-thinker-title {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .thinker-modal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-block {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .info-block p {
+      color: #475569;
+    }
+
+    .highlighted-quote {
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlighted-quote p {
+      font-style: italic;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .keyword-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .keyword-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid rgba(0,0,0,0.01);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    /* 인쇄용 학적 양식 헤더 */
+    .print-header {
+      display: none;
+    }
+
+    /* ==========================================================================
+       17. 인쇄 전용 스타일 (@media print)
+       ========================================================================== */
+    @media print {
+      body, html {
+        background-color: white !important;
+        background: none !important;
+        color: black !important;
+        font-size: 11pt;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        padding: 0 !important;
+      }
+
+      .container {
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        gap: 0 !important;
+      }
+
+      .control-bar, 
+      .app-footer, 
+      .word-bank-wrapper,
+      .badge-topic,
+      .title-banner p {
+        display: none !important;
+      }
+
+      .title-banner {
+        padding: 10mm 0 5mm 0 !important;
+      }
+
+      .title-banner h1 {
+        font-size: 24pt !important;
+        color: black !important;
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+      }
+
+      .content-wrapper {
+        display: block !important;
+      }
+
+      .lesson-section {
+        display: flex !important;
+        opacity: 1 !important;
+        position: relative !important;
+        width: 100% !important;
+        min-height: 275mm; /* A4 height */
+        page-break-after: always !important;
+        break-after: page !important;
+        padding: 10mm 5mm !important;
+      }
+
+      #tab-intro, #tab-quiz {
+        display: none !important;
+      }
+
+      .lesson-section:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+
+      .section-slogan {
+        border-left: 4px solid black !important;
+        background: none !important;
+        padding: 3mm 5mm !important;
+        margin-bottom: 6mm !important;
+        box-shadow: none !important;
+      }
+
+      .slogan-title {
+        font-size: 16pt !important;
+        color: black !important;
+      }
+
+      .slogan-desc {
+        color: #475569 !important;
+      }
+
+      .dashboard-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6mm !important;
+      }
+
+      .dashboard-card {
+        background: white !important;
+        border: 1.5px solid #475569 !important;
+        box-shadow: none !important;
+        padding: 4mm 6mm !important;
+        transform: none !important;
+        width: 100% !important;
+        break-inside: avoid !important;
+      }
+
+      .block-title {
+        font-size: 13pt !important;
+        border-bottom: 1.5px solid black !important;
+        color: black !important;
+      }
+
+      .block-title span.badge {
+        border: 1px solid black !important;
+        background: none !important;
+        color: black !important;
+      }
+
+      .definition-item {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        color: black !important;
+      }
+
+      .item-label {
+        color: black !important;
+      }
+
+      .item-text {
+        color: black !important;
+      }
+
+      .cards-sub-row, .grid-3col {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4mm !important;
+      }
+
+      .challenge-subcard, .tile-card {
+        background: white !important;
+        border: 1px solid #94a3b8 !important;
+        box-shadow: none !important;
+        padding: 4mm 5mm !important;
+        break-inside: avoid !important;
+      }
+
+      .tile-icon-box {
+        display: none !important;
+      }
+
+      .tile-title {
+        color: black !important;
+        border-bottom: 1px solid #cbd5e1;
+        padding-bottom: 2px;
+      }
+
+      .tile-desc {
+        color: black !important;
+      }
+
+      .subcard-num {
+        color: #475569 !important;
+        font-size: 14pt !important;
+        top: 2mm !important;
+        right: 3mm !important;
+      }
+
+      .philosopher-flex {
+        gap: 4mm !important;
+      }
+
+      .p-flex-item {
+        background: white !important;
+        border: 1px solid #94a3b8 !important;
+        color: black !important;
+      }
+
+      .p-avatar-img {
+        border-color: black !important;
+      }
+
+      .p-bubble {
+        color: black !important;
+      }
+
+      .split-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6mm !important;
+      }
+
+      .split-text {
+        width: 100% !important;
+      }
+
+      .split-bullet {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        border-left: 4px solid black !important;
+        color: black !important;
+      }
+
+      .split-visual {
+        display: none !important;
+      }
+
+      .comparison-table th {
+        background: #e2e8f0 !important;
+        color: black !important;
+        border-bottom: 1.5px solid black !important;
+      }
+
+      .comparison-table td {
+        color: black !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+      }
+
+      .td-label {
+        background: #f1f5f9 !important;
+        color: black !important;
+      }
+
+      .table-badge {
+        background: none !important;
+        border: 1px solid black !important;
+        color: black !important;
+      }
+
+      /* 인쇄용 학적 기입 헤더 양식 노출 */
+      .print-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid black;
+        padding-bottom: 3mm;
+        margin-bottom: 5mm;
+        width: 100%;
+      }
+
+      .print-header-title {
+        font-size: 12pt;
+        font-weight: 800;
+      }
+
+      .print-student-info {
+        font-size: 11pt;
+        letter-spacing: 1px;
+      }
+
+      /* 빈칸 인쇄 출력 포맷 */
+      input.blank {
+        background: white !important;
+        border: none !important;
+        border-bottom: 1.5px solid black !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        color: black !important;
+        font-weight: bold !important;
+      }
+
+      .mode-teacher input.blank {
+        color: #dc2626 !important; /* Red Ink for Print answer sheet */
+        font-family: 'Nanum Pen Script', cursive !important;
+        font-size: 17pt !important;
+        font-weight: 500 !important;
+      }
+
+      .discussion-box-card {
+        background: white !important;
+        border: 1.5px solid black !important;
+        box-shadow: none !important;
+        break-inside: avoid !important;
+      }
+
+      .q-badge {
+        border: 1px solid black !important;
+        color: black !important;
+        background: none !important;
+      }
+
+      .q-header h4 {
+        color: black !important;
+      }
+
+      .essay-textarea-wrapper textarea {
+        background: white !important;
+        border: 1px solid black !important;
+        color: black !important;
+        height: 60mm !important;
+      }
+
+      .essay-textarea-wrapper textarea[readonly] {
+        color: #dc2626 !important;
+        font-size: 1.6rem !important;
+      }
+
+      .checklist-text {
+        color: black !important;
+      }
+    }
+
+    /* ====================================================================
+       [Quiz Page Specific Styles]
+       ==================================================================== */
+    body.theme-quiz {
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --accent-light: rgba(15, 118, 110, 0.1);
+      --accent-shadow: rgba(15, 118, 110, 0.15);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e2e8f0 100%);
+    }
+    
+    .quiz-sub-tabs {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #cbd5e1;
+      padding-bottom: 0.8rem;
+    }
+
+    .quiz-sub-btn {
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #64748b; /* Slate 500 */
+      transition: all var(--transition-speed) ease;
+    }
+
+    .quiz-sub-btn:hover {
+      color: var(--accent);
+      background: rgba(15, 118, 110, 0.05);
+    }
+
+    .quiz-sub-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .quiz-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 시뮬레이션 및 그래프 영역 */
+    .sim-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .price-control-panel {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .slider-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .slider-label {
+      font-weight: 700;
+      color: var(--text-main);
+      min-width: 80px;
+    }
+    
+    .price-slider {
+      flex: 1;
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .price-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      transition: transform 0.1s;
+    }
+    
+    .price-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    
+    .price-display {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 90px;
+      text-align: right;
+      font-family: monospace;
+    }
+    
+    .sim-status-box {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-light);
+      padding: 12px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .sim-status-box.balanced {
+      border-left-color: #047857;
+      background: #ecfdf5;
+      color: #065f46;
+      animation: pulse-border 1.5s infinite;
+    }
+
+    @keyframes pulse-border {
+      0% { border-left-color: #047857; }
+      50% { border-left-color: #34d399; }
+      100% { border-left-color: #047857; }
+    }
+
+    .graphs-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    
+    .graph-box {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: white;
+      text-align: center;
+    }
+    
+    .graph-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+    
+    .graph-svg {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+    }
+
+    /* 퀴즈 문제 및 풀이 영역 */
+    .quiz-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .question-block {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .question-info {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: white;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-content {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    /* 보기 및 정답 폼 */
+    .view-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .view-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    .view-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .view-option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .view-option-item:hover {
+      background: var(--bg-light);
+    }
+
+    .answer-selection {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .choice-btn-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .choice-btn-label:hover {
+      background: var(--bg-light);
+      border-color: var(--text-dark);
+    }
+
+    .choice-radio {
+      display: none;
+    }
+
+    .choice-radio:checked + .choice-btn-label {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      box-shadow: 0 4px 6px rgba(15, 118, 110, 0.2);
+    }
+
+    .submit-quiz-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--text-dark);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-quiz-btn:hover {
+      background: #0f172a;
+    }
+
+    .explanation-box {
+      display: none;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+      animation: slide-down 0.3s ease-out;
+    }
+
+    .explanation-box.visible {
+      display: block;
+    }
+
+    .explanation-box h4 {
+      color: #166534;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .explanation-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body class="mode-student theme-intro">
+
+  <div class="container">
+    <!-- 상단 대형 타이틀 배너 -->
+    <header class="title-banner">
+      <span class="badge-topic">V. 국제 경제 - 02</span>
+      <h1>무역 원리와 무역 정책 활동지</h1>
+      <p>정답 단어를 직접 타이핑하여 활동지를 채워봅시다.</p>
+    </header>
+
+    <!-- 컨트롤바 (탭 전환 & 설정 기능) -->
+    <div class="control-bar">
+      <div class="control-row">
+        <!-- 1차 대주제 전환 탭 메뉴 -->
+        <nav class="topic-tabs">
+          <button class="topic-btn active" data-tab="intro">
+            <span>🏁</span> 단원 도입
+          </button>
+          <button class="topic-btn" data-tab="freetrade">
+            <span>📈</span> 자유 무역
+          </button>
+          <button class="topic-btn" data-tab="protection">
+            <span>🛡️</span> 보호 무역
+          </button>
+          <button class="topic-btn" data-tab="compare">
+            <span>📊</span> 종합 비교표
+          </button>
+          <a href="trade_quiz.html" id="quizLink" class="topic-btn link-btn" style="text-decoration: none; color: #64748b; font-weight: 800;">
+            <span>📝</span> 실전 문제 분석
+          </a>
+          <button class="topic-btn" data-tab="essay">
+            <span>✍️</span> 배움 정리
+          </button>
+        </nav>
+
+        <!-- 학습 설정 및 모드 토글 -->
+        <div class="settings-group">
+          <!-- 진척도 표시 -->
+          <div class="progress-container">
+            <span class="progress-text-label">활동지 완성도</span>
+            <div class="progress-bar-bg">
+              <div id="progressBarFill" class="progress-bar-fill"></div>
+            </div>
+            <span id="progressText" class="progress-text">0%</span>
+          </div>
+
+          <!-- 모드 전환 스위치 (학생용 vs 교사용모범답안) -->
+          <div class="mode-switch">
+            <span class="mode-label label-student active">학생용 워크북</span>
+            <label class="switch">
+              <input type="checkbox" id="modeToggle">
+              <span class="slider"></span>
+            </label>
+            <span class="mode-label label-teacher">모범답안</span>
+          </div>
+
+          <!-- 인쇄 및 초기화 액션 -->
+          <button id="printBtn" class="btn-action" title="학습지 인쇄 (A4)">
+            <i class="fa-solid fa-print"></i>
+            인쇄
+          </button>
+          <button id="resetBtn" class="btn-action" title="학습 진척도 초기화">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            초기화
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메인 대시보드 콘텐츠 영역 -->
+    <main class="content-wrapper">
+      
+      <!-- ====================================================================
+           [Tab 1: 단원 도입 (Intro Section)]
+           ==================================================================== -->
+      <section class="lesson-section active" id="tab-intro">
+        <div class="section-slogan">
+          <h2 class="slogan-title">세계화 경제 속 무역은 어떤 방향으로 나아가야 할까?</h2>
+          <p class="slogan-desc">시장 개방과 자원 효율성을 추구하는 '자유 무역'과, 자국 산업 보전과 경제 안보를 내세우는 '보호 무역'의 긴장을 탐구합시다.</p>
+        </div>
+        
+        <div class="intro-dashboard">
+          <div class="intro-guide-card">
+            <h3>📖 학습 안내 및 활동 방법</h3>
+            <ul class="guide-list">
+              <li><strong>1단계:</strong> 상단 메뉴를 통해 <strong>자유 무역</strong>, <strong>보호 무역</strong>, <strong>종합 비교표</strong> 탭을 차례로 학습합니다.</li>
+              <li><strong>2단계:</strong> 본문의 빈칸 입력 필드를 클릭한 뒤, 알맞은 경제 용어를 키보드로 <strong>직접 타이핑</strong>하여 채웁니다.</li>
+              <li><strong>3단계:</strong> 입력 상자에 마우스를 대면 흐릿하게 제공되는 <strong>초성 자음 힌트</strong> 및 하단 <strong>단어 바구니</strong> 단어 목록을 참고할 수 있습니다.</li>
+              <li><strong>4단계:</strong> 에세이를 작성하고 자가 배움 테스트를 마친 뒤, 상단의 **[인쇄]** 버튼을 눌러 인쇄용 양식(A4 크기)으로 출력합니다.</li>
+            </ul>
+            
+            <div class="intro-banner-box">
+              <span class="banner-icon">✏️</span>
+              <p>마우스를 대면 초성이 나타납니다. 바구니의 단어를 참고하여 키보드로 직접 정확하게 타이핑해 정답을 완성하세요.</p>
+            </div>
+          </div>
+          
+          <div class="intro-visual-card">
+            <div class="visual-split">
+              <div class="split-side split-free">
+                <h4>자유 무역 정책</h4>
+                <p>국가의 규제나 인위적 장벽을 제거하고 시장원리와 비교우위 특화에 근거한 글로벌 자유거래를 지향</p>
+              </div>
+              <div class="split-side split-protection">
+                <h4>보호 무역 정책</h4>
+                <p>국가 안보, 유치산업 보호, 국내 고용 보호를 위해 관세율 조정 및 수입 제한 등의 개입 조절 추구</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Tab 2: 자유 무역 (Free Trade Section)]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-freetrade">
+        <!-- 인쇄용 학적 양식 헤더 -->
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (자유 무역 활동지)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">📈 자유 무역: 간섭 없는 시장 거래와 글로벌 경제 후생 증대</h2>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- 1. 무역 정책의 개념 정의 -->
+          <div class="dashboard-card card-half">
+            <h3 class="block-title">자유 무역 정책의 개념 <span class="badge">개념</span></h3>
+            <div class="card-content-stack">
+              <div class="definition-item contrast-success">
+                <strong class="item-label">자유 무역의 정의</strong>
+                <p class="item-text">국가의 인위적 간섭을 <input type="text" class="blank" data-answer="배제" data-id="t2-b1" data-hint="ㅂㅈ">하고 시장 경제 원리에 따라 <input type="text" class="blank" data-answer="자유로운" data-id="t2-b2" data-hint="ㅈㅇㄹㅇ"> 대외 거래를 추구하는 정책을 뜻함.</p>
+              </div>
+              <div class="definition-item">
+                <strong class="item-label">지향점</strong>
+                <p class="item-text">국가 간 관세 등 장벽을 허물어 자원을 효율적으로 배분하고 전 세계적 소비량을 늘리는 데 목적을 둠.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 자유 무역의 긍정적 의의 -->
+          <div class="dashboard-card card-half">
+            <h3 class="block-title">자유 무역의 긍정적 측면 <span class="badge">효과</span></h3>
+            <div class="bullet-list-container">
+              <div class="bullet-item">
+                <div class="bullet-index">1</div>
+                <div class="bullet-content">비교 우위 특화 생산으로 소비 재화의 <input type="text" class="blank" data-answer="종류와 양" data-id="t2-b4" data-hint="ㅈㄹㅇ ㅇ">이 늘어납니다.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-index">2</div>
+                <div class="bullet-content">상대적으로 더 <input type="text" class="blank" data-answer="낮은 비용" data-id="t2-b5" data-hint="ㄴㅇ ㅂㅇ">으로 생산된 상품을 값싸게 소비합니다.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-index">3</div>
+                <div class="bullet-content">수출 기업 생산 증가 및 <input type="text" class="blank" data-answer="고용" data-id="t2-b6" data-hint="ㄱㅇ"> 확대로 경제 성장을 견인합니다.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-index">4</div>
+                <div class="bullet-content">국경을 넘는 외산과의 무한 경쟁 속 국내 <input type="text" class="blank" data-answer="기술 혁신" data-id="t2-b7" data-hint="ㄱㅅ ㅎㅅ">을 유도합니다.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 자유 무역의 부작용 및 한계 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">자유 무역의 문제점과 한계 <span class="badge danger">부작용</span></h3>
+            <div class="card-content-stack" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="split-bullet">
+                개도국이 저부가가치 1차 산업에 고착화되어 선진국 위주의 <input type="text" class="blank" data-answer="산업 고도화" data-id="t2-b8" data-hint="ㅅㅇ ㄱㄷㅎ"> 독점 우려 발생.
+              </div>
+              <div class="split-bullet">
+                글로벌 경쟁력 우위를 선점하지 못한 취약 자국 기업들의 도태 및 이로 인한 <input type="text" class="blank" data-answer="국내 실업" data-id="t2-b9" data-hint="ㄱㄴ ㅅㅇ"> 증가 리스크.
+              </div>
+              <div class="split-bullet">
+                글로벌 밀접도 심화로 국가 간 <input type="text" class="blank" data-answer="상호 의존도" data-id="t2-b10" data-hint="ㅅㅎ ㅇㅈㄷ">가 과하게 상승해 대외 쇼크 전이가 빨라짐.
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 자유무역 대표 사상가 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">고전 경제학 사상가들의 관점 <span class="badge warning">인물 매칭</span> <span style="font-size:0.85rem; font-weight:normal; margin-left:auto; color:var(--text-dark);">💡 아바타를 클릭하면 상세 학습창이 활성화됩니다.</span></h3>
+            <div class="philosopher-flex">
+              <div class="p-flex-item">
+                <div class="p-avatar-wrapper clickable-thinker" data-thinker="smith" title="아담 스미스 설명 보기">
+                  <img src="images/smith.png" alt="아담 스미스" class="p-avatar-img">
+                  <span class="p-avatar-name">아담 스미스</span>
+                </div>
+                <div class="p-bubble">
+                  국가별 무역 장벽 규제는 자원을 엉뚱하게 배치해 국부를 저해합니다. '보이지 않는 손'인 시장 원리를 바탕으로 국가 규제를 완전 차단하는 완전무역을 주장하며 <strong>절대 우위론</strong>을 주창했습니다.
+                </div>
+              </div>
+              <div class="p-flex-item">
+                <div class="p-avatar-wrapper clickable-thinker" data-thinker="ricardo" title="데이비드 리카도 설명 보기">
+                  <img src="images/ricardo.png" alt="데이비드 리카도" class="p-avatar-img">
+                  <span class="p-avatar-name">데이비드 리카도</span>
+                </div>
+                <div class="p-bubble">
+                  절대적으로 유리한 품목이 없더라도, 상대적인 기회비용이 더 적은 제품에 특화 생산하는 <strong>비교 우위론</strong>을 내세워, 국가 간 교역이 당사국 모두에게 윈-윈(Win-Win)이 됨을 과학적으로 규명했습니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 자유 무역이 수입국에 미치는 효과 (교과서 182쪽 탐구) -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">📖 교과서 182쪽 탐구: 자유 무역이 수입국에 미치는 효과 <span class="badge">탐구</span></h3>
+            <div class="split-layout">
+              <div class="split-text">
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:16px; border-radius:var(--radius); margin-bottom:16px; font-size:1.05rem; line-height:1.75;">
+                  <strong>[탐구 과제] 다음 자료를 분석하여 빈칸을 채우고 무역의 효과를 알아봅시다.</strong><br>
+                  그래프는 갑국의 X재 시장을 나타낸다. 갑국은 3달러의 가격 수준에서 X재를 원하는 만큼 수입할 수 있다. (국제 가격 = 3달러)
+                </div>
+                
+                <div class="step-list" style="display:flex; flex-direction:column; gap:16px;">
+                  <div class="step-item" style="padding:16px;">
+                    <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 1] 교역 전 국내 잉여 분석 (가)</div>
+                    <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                      교역 전 국내 균형 가격은 <input type="text" class="blank" data-answer="5" data-id="ft-q1" data-hint="가격">달러이며, 이때의 국내 균형 거래량은 5만 개입니다.<br>
+                      소비자 잉여는 <strong><input type="text" class="blank" data-answer="12.5" data-id="ft-q2" data-hint="잉여">만 달러</strong>, 생산자 잉여는 <strong><input type="text" class="blank" data-answer="12.5" data-id="ft-q3" data-hint="잉여">만 달러</strong>이므로, 이 나라의 사회적 총잉여는 <strong><input type="text" class="blank" data-answer="25" data-id="ft-q4" data-hint="총합">만 달러</strong>가 됩니다.
+                    </div>
+                  </div>
+                  
+                  <div class="step-item" style="padding:16px;">
+                    <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 2] 교역 후 국내 잉여 분석 (나)</div>
+                    <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                      국제 가격인 <input type="text" class="blank" data-answer="3" data-id="ft-q8" data-hint="가격">달러 수준에서 무역이 시작되면, 이 나라의 국내 가격도 <strong><input type="text" class="blank" data-answer="3" data-id="ft-q8-2" data-hint="가격">달러</strong>로 하락합니다.
+                      이 가격에서 국내 공급량은 <input type="text" class="blank" data-answer="3" data-id="ft-q5" data-hint="공급량">만 개이고, 국내 수요량은 <input type="text" class="blank" data-answer="7" data-id="ft-q6" data-hint="수요량">만 개가 됩니다.
+                      따라서 부족분인 <input type="text" class="blank" data-answer="4" data-id="ft-q7" data-hint="수입량">만 개를 외국에서 수입해옵니다.<br>
+                      이때 소비자 잉여는 <strong><input type="text" class="blank" data-answer="24.5" data-id="ft-q9" data-hint="잉여">만 달러</strong>로 크게 증가하는 반면, 생산자 잉여는 <strong><input type="text" class="blank" data-answer="4.5" data-id="ft-q10" data-hint="잉여">만 달러</strong>로 감소합니다. 그 결과 사회적 총잉여는 <strong><input type="text" class="blank" data-answer="29" data-id="ft-q11" data-hint="총합">만 달러</strong>가 됩니다.
+                    </div>
+                  </div>
+                  
+                  <div class="step-item" style="padding:16px;">
+                    <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 3] 수입국에 미치는 경제적 효과 종합</div>
+                    <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                      교역 결과 소비자 잉여는 <input type="text" class="blank" data-answer="증가" data-id="ft-q13" data-hint="ㅈㄱ/ㄱㅅ">하고 생산자 잉여는 <input type="text" class="blank" data-answer="감소" data-id="ft-q14" data-hint="ㅈㄱ/ㄱㅅ">하지만, 전체 총잉여는 교역 전보다 <strong><input type="text" class="blank" data-answer="4" data-id="ft-q12" data-hint="변화량">만 달러</strong> <input type="text" class="blank" data-answer="증가" data-id="ft-q15" data-hint="ㅈㄱ/ㄱㅅ">하였습니다.<br>
+                      이처럼 소비자의 이득이 생산자의 손실보다 크므로, 자유 무역은 수입국 전체적으로 <strong>사회적 효율성</strong>을 높인다고 설명할 수 있습니다.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="split-visual" style="flex:1.2; display:flex; flex-direction:column; gap:16px; min-width:350px;">
+                <!-- (가) 그래프 -->
+                <div class="graph-box" style="padding:16px;">
+                  <div class="graph-title" style="font-size:0.95rem; margin-bottom:8px;">📉 [가] 교역 전 (국내 균형)</div>
+                  <svg viewBox="0 0 200 200" style="width:100%; max-height:280px;">
+                    <line x1="20" y1="180" x2="190" y2="180" stroke="#475569" stroke-width="1.5"/>
+                    <line x1="20" y1="10" x2="20" y2="180" stroke="#475569" stroke-width="1.5"/>
+                    
+                    <!-- 소비자 잉여 -->
+                    <polygon points="20,100 100,100 20,20" fill="rgba(59, 130, 246, 0.25)" stroke="#3b82f6" stroke-width="0.5"/>
+                    <!-- 생산자 잉여 -->
+                    <polygon points="20,180 20,100 100,100" fill="rgba(236, 72, 153, 0.25)" stroke="#ec4899" stroke-width="0.5"/>
+                    
+                    <!-- Curves -->
+                    <line x1="20" y1="20" x2="180" y2="180" stroke="#3b82f6" stroke-width="1.5"/>
+                    <line x1="20" y1="180" x2="180" y2="20" stroke="#ef4444" stroke-width="1.5"/>
+                    
+                    <!-- Intersects & Guidelines -->
+                    <line x1="20" y1="100" x2="100" y2="100" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="100" y1="100" x2="100" y2="180" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <circle cx="100" cy="100" r="3" fill="#0f172a"/>
+                    
+                    <text x="180" y="191" fill="#1e3a8a" font-size="10" font-weight="bold">수요</text>
+                    <text x="180" y="15" fill="#b91c1c" font-size="10" font-weight="bold">공급</text>
+                    <text x="100" y="193" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">5</text>
+                    <text x="13" y="24" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">10</text>
+                    <text x="13" y="104" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">5</text>
+                    <text x="13" y="184" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">0</text>
+                    <text x="195" y="183" fill="#334155" font-size="10" font-weight="bold">Q</text>
+                    <text x="13" y="12" fill="#334155" font-size="10" font-weight="bold">P</text>
+                    <text x="55" y="70" fill="#1e3a8a" font-size="10.5" font-weight="bold" text-anchor="middle">소비자 잉여</text>
+                    <text x="55" y="135" fill="#9d174d" font-size="10.5" font-weight="bold" text-anchor="middle">생산자 잉여</text>
+                  </svg>
+                </div>
+                
+                <!-- (나) 그래프 -->
+                <div class="graph-box" style="padding:16px;">
+                  <div class="graph-title" style="font-size:0.95rem; margin-bottom:8px;">📈 [나] 교역 후 (수입 개시)</div>
+                  <svg viewBox="0 0 200 200" style="width:100%; max-height:280px;">
+                    <line x1="20" y1="180" x2="190" y2="180" stroke="#475569" stroke-width="1.5"/>
+                    <line x1="20" y1="10" x2="20" y2="180" stroke="#475569" stroke-width="1.5"/>
+                    
+                    <!-- 소비자 잉여 -->
+                    <polygon points="20,132 132,132 20,20" fill="rgba(59, 130, 246, 0.25)" stroke="#3b82f6" stroke-width="0.5"/>
+                    <!-- 생산자 잉여 -->
+                    <polygon points="20,180 20,132 68,132" fill="rgba(236, 72, 153, 0.25)" stroke="#ec4899" stroke-width="0.5"/>
+                    <!-- 수입 이득 (삼각형 부분) -->
+                    <polygon points="68,132 132,132 100,100" fill="rgba(4, 120, 87, 0.2)" stroke="#047857" stroke-width="0.5"/>
+                    
+                    <line x1="20" y1="20" x2="180" y2="180" stroke="#3b82f6" stroke-width="1.5"/>
+                    <line x1="20" y1="180" x2="180" y2="20" stroke="#ef4444" stroke-width="1.5"/>
+                    
+                    <!-- International Price line P=3 -->
+                    <line x1="20" y1="132" x2="180" y2="132" stroke="#047857" stroke-width="1.5" stroke-dasharray="3 3"/>
+                    
+                    <!-- Domestic equilibrium price line P=5 guideline (Dashed) -->
+                    <line x1="20" y1="100" x2="100" y2="100" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    
+                    <line x1="68" y1="132" x2="68" y2="180" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="132" y1="132" x2="132" y2="180" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <circle cx="68" cy="132" r="3" fill="#ef4444"/>
+                    <circle cx="132" cy="132" r="3" fill="#3b82f6"/>
+                    
+                    <text x="182" y="128" fill="#047857" font-size="9.5" font-weight="bold">국제가격(3$)</text>
+                    <text x="180" y="191" fill="#1e3a8a" font-size="10" font-weight="bold">수요</text>
+                    <text x="180" y="15" fill="#b91c1c" font-size="10" font-weight="bold">공급</text>
+                    <text x="68" y="193" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">3</text>
+                    <text x="132" y="193" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">7</text>
+                    <text x="13" y="24" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">10</text>
+                    <text x="13" y="104" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">5</text>
+                    <text x="13" y="136" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">3</text>
+                    <text x="13" y="184" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">0</text>
+                    <text x="195" y="183" fill="#334155" font-size="10" font-weight="bold">Q</text>
+                    <text x="13" y="12" fill="#334155" font-size="10" font-weight="bold">P</text>
+                    <text x="65" y="80" fill="#1e3a8a" font-size="10.5" font-weight="bold" text-anchor="middle">소비자 잉여</text>
+                    <text x="42" y="155" fill="#9d174d" font-size="10.5" font-weight="bold" text-anchor="middle">생산자 잉여</text>
+                    
+                    <!-- 무역의 이익 라벨 화살표 -->
+                    <path d="M100,118 L120,105" stroke="#047857" stroke-width="0.75"/>
+                    <text x="122" y="103" fill="#047857" font-size="9.5" font-weight="bold" text-anchor="start">순이익</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+<!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="freetrade"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Tab 3: 보호 무역 (Protectionism Section)]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-protection">
+        <!-- 인쇄용 학적 양식 헤더 -->
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (보호 무역 활동지)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">🛡️ 보호 무역: 유치산업 육성 및 자국 노동자·국민 경제의 안보</h2>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- 1. 보호 무역 정책 정의 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">보호 무역 정책의 개념 <span class="badge">개념</span></h3>
+            <div class="card-content-stack">
+              <div class="definition-item contrast-failure">
+                <strong class="item-label">보호 무역의 정의</strong>
+                <p class="item-text">국가 안보와 국내 산업의 방어 육성을 목표로, 국가가 상품의 수출입에 <input type="text" class="blank" data-answer="직간접적" data-id="t2-b3" data-hint="ㅈㄱㅈㅈ">으로 개입하고 무역 규모와 유입 장벽을 의도적으로 조정하는 정책입니다.</p>
+              </div>
+              <div class="definition-item">
+                <strong class="item-label">역사적 발생 배경</strong>
+                <p class="item-text">18~19세기 영국의 압도적인 산업 독점(자유무역) 속에서, 미국·독일 등 후발 주자들이 자국 제조업의 붕괴(자유무역의 부작용)를 막고 경제적 자립을 도모하고자 국가 차원의 보호관세 장벽을 도입하면서 탄생했습니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 보호 무역을 시행하는 3가지 사유 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">보호 무역을 펼치는 이유 <span class="badge">명분</span></h3>
+            <div class="grid-3col">
+              <div class="tile-card">
+                <div class="tile-icon-box"><i class="fa-solid fa-seedling"></i></div>
+                <h4 class="tile-title">유치산업의 육성</h4>
+                <p class="tile-desc">앞으로 경제성장 발전 동력이 될 잠재력은 크나 아직 해외 거대 기업들과 경쟁하기엔 <input type="text" class="blank" data-answer="미숙한" data-id="t3-b1" data-hint="ㅁㅅㅎ"> 초기 산업의 안전망이 됨.</p>
+              </div>
+              <div class="tile-card">
+                <div class="tile-icon-box"><i class="fa-solid fa-user-shield"></i></div>
+                <h4 class="tile-title">국내 고용의 보전</h4>
+                <p class="tile-desc">저렴한 외산의 폭발적인 국내 점유율 확대로 발생할 수 있는 국내 자국 기업들의 <input type="text" class="blank" data-answer="생산 감소" data-id="t3-b2" data-hint="ㅅㅅ ㄱㅅ">와 심각한 고용 불안을 예방함.</p>
+              </div>
+              <div class="tile-card">
+                <div class="tile-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4 class="tile-title">국가 생존 안보</h4>
+                <p class="tile-desc">군사적 충돌 및 외교 단절 시 국가 핵심 생존 자원인 <input type="text" class="blank" data-answer="식량" data-id="t3-b3" data-hint="ㅅㄹ">이나 방위 산업 자급 능력 확보의 기초가 됨.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 보호 무역의 세부 실천 수단 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">보호 무역을 위한 주요 규제 및 정책 수단 <span class="badge danger">수단</span></h3>
+            <div class="table-container">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">정책 수단 구분</th>
+                    <th style="width: 75%;">핵심 메커니즘 및 상세 설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="table-badge badge-tariff">관세 장벽</span></td>
+                    <td>수입품 통관 시 일정한 비율의 높은 <input type="text" class="blank" data-answer="세금" data-id="t3-b4" data-hint="ㅅㄱ">(관세)을 부과하여, 국내 자국 제품과의 가격 우위를 조정하는 수단.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="table-badge badge-nontariff">비관세: 수입 할당제</span></td>
+                    <td>특정 품목의 연간 최대 수입 허용 한도를 직접 설정하여 총량을 통제하는 <input type="text" class="blank" data-answer="수입 할당제" data-id="t3-b5" data-hint="ㅅㅇ ㅎㄷㅈ"> 정책.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="table-badge badge-nontariff">비관세: 수출 보조금</span></td>
+                    <td>자국 제품을 수출하는 현지 기업에 현금성 재정 조달을 돕는 <input type="text" class="blank" data-answer="수출 보조금" data-id="t3-b6" data-hint="ㅅㅊ ㅂㅈㄱ">을 줌으로써 유통 우위를 강화함.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="table-badge badge-nontariff">비관세: 국내 보조금</span></td>
+                    <td>국내 생산 기업에게 재정적 혜택인 <input type="text" class="blank" data-answer="보조금" data-id="t3-b8" data-hint="ㅂㅈㄱ">을 지급하여 생산비를 낮추고 가격 경쟁력을 키우는 정책.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="table-badge badge-nontariff">비관세: 기술 장벽 (TBT)</span></td>
+                    <td>엄격한 제품 위생 검역, 규격 기준, 환경 평가 등을 통해 수입을 깐깐하게 막는 <input type="text" class="blank" data-answer="무역 기술 장벽" data-id="t3-b7" data-hint="ㅁㅇ ㄱㅅ ㅈㅂ"> 조치.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. 보호무역 사상가 -->
+          <div class="dashboard-card card-full">
+            <h3 class="block-title">보호 무역 사상가의 관점 <span class="badge warning">인물 매칭</span></h3>
+            <div class="philosopher-flex">
+              <div class="p-flex-item">
+                <div class="p-avatar-wrapper clickable-thinker" data-thinker="hamilton" title="알렉산더 해밀턴 설명 보기">
+                  <img src="images/hamilton.png" alt="알렉산더 해밀턴" class="p-avatar-img">
+                  <span class="p-avatar-name">알렉산더 해밀턴</span>
+                </div>
+                <div class="p-bubble">
+                  신생 독립국인 미국이 영국의 대량 저가 공업 제품에 대책 없이 개방한다면 영원히 영국의 경제적 식민지에 머물 것입니다. 건국 초기 제조업을 지켜내기 위해 국가가 높은 보호장벽을 쳐주어야 한다는 <strong>유치산업 보호론</strong>을 최초로 주창했습니다.
+                </div>
+              </div>
+              <div class="p-flex-item">
+                <div class="p-avatar-wrapper clickable-thinker" data-thinker="list" title="프리드리히 리스트 설명 보기">
+                  <img src="images/list.png" alt="프리드리히 리스트" class="p-avatar-img">
+                  <span class="p-avatar-name">프리드리히 리스트</span>
+                </div>
+                <div class="p-bubble">
+                  영국 중심의 고전 경제학은 선진 강대국의 기득권 유지 논리일 뿐입니다. 국가 경쟁력이 차이 나는 상황에서의 전면 자유무역은 불합리합니다. 자국 산업 보호 기반의 <strong>유치산업 보호론</strong>을 체계적으로 설파하며 보호관세를 적극 옹호했습니다.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 관세 부과의 경제적 효과 (실전 수능 문제 분석 탐구) -->
+        <div class="dashboard-card card-full">
+          <h3 class="block-title">📖 실전 문제 탐구: 관세 부과(보호 무역)가 수입국에 미치는 효과 <span class="badge">탐구</span></h3>
+          <div class="split-layout">
+            <div class="split-text">
+              <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:16px; border-radius:var(--radius); margin-bottom:16px; font-size:1.05rem; line-height:1.75; border-radius: 12px;">
+                <strong>[탐구 과제] 다음 자료를 분석하여 빈칸을 채우고 관세 부과의 효과를 알아봅시다.</strong><br>
+                그래프는 갑국의 X재 시장을 나타낸다. 갑국은 1달러의 국제 가격 수준에서 X재 자유 무역에 참여하고 있었다. 갑국 정부는 생산자를 보호하기 위해 t+1기에 X재 수입 1개당 1달러의 관세를 부과하였다. (국제 가격 = 1달러, 관세 = 1달러)
+              </div>
+              
+              <div class="step-list" style="display:flex; flex-direction:column; gap:16px;">
+                <div class="step-item" style="padding:16px;">
+                  <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 1] 관세 부과 전 (자유 무역 상태 - t기) 분석</div>
+                  <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                    자유 무역 상태의 국내 가격은 <input type="text" class="blank" data-answer="1" data-id="pt-q1" data-hint="가격">달러이며, 국내 생산량은 <input type="text" class="blank" data-answer="1" data-id="pt-q2" data-hint="생산량">만 개, 국내 소비량은 <input type="text" class="blank" data-answer="5" data-id="pt-q3" data-hint="소비량">만 개입니다.<br>
+                    따라서 부족분인 <input type="text" class="blank" data-answer="4" data-id="pt-q4" data-hint="수입량">만 개를 수입합니다.<br>
+                    이때 소비자 잉여는 <strong><input type="text" class="blank" data-answer="12.5" data-id="pt-q5" data-hint="잉여">만 달러</strong>, 생산자 잉여는 <strong><input type="text" class="blank" data-answer="0.5" data-id="pt-q6" data-hint="잉여">만 달러</strong>이며, 사회적 총잉여는 <strong><input type="text" class="blank" data-answer="13" data-id="pt-q7" data-hint="총합">만 달러</strong>가 됩니다.
+                  </div>
+                </div>
+                
+                <div class="step-item" style="padding:16px;">
+                  <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 2] 관세 부과 후 (보호 무역 상태 - t+1기) 분석</div>
+                  <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                    관세 부과 후 국내 가격은 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q8" data-hint="가격">달러</strong>로 상승하고, 국내 생산량은 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q9" data-hint="생산량">만 개</strong>로 증가하나, 국내 소비량은 <strong><input type="text" class="blank" data-answer="4" data-id="pt-q10" data-hint="소비량">만 개</strong>로 감소합니다. 수입량은 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q11" data-hint="수입량">만 개</strong>로 감소합니다.<br>
+                    이때 소비자 잉여는 <strong><input type="text" class="blank" data-answer="8" data-id="pt-q12" data-hint="잉여">만 달러</strong>로 감소하고, 생산자 잉여는 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q13" data-hint="잉여">만 달러</strong>로 증가합니다. 정부의 관세 수입은 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q14" data-hint="관세수입">만 달러</strong>이며, 사회적 총잉여는 <strong><input type="text" class="blank" data-answer="12" data-id="pt-q15" data-hint="총합">만 달러</strong>가 됩니다.
+                  </div>
+                </div>
+                
+                <div class="step-item" style="padding:16px;">
+                  <div class="step-title" style="font-size:1.15rem; font-weight:800; color:var(--accent);">📍 [문항 3] 관세 부과에 따른 경제적 효과 종합</div>
+                  <div class="step-content" style="font-size:1.05rem; line-height:1.8; color:var(--text-main);">
+                    관세 부과로 소비자 잉여는 <input type="text" class="blank" data-answer="감소" data-id="pt-q16" data-hint="ㅈㄱ/ㄱㅅ">하고 생산자 잉여는 <input type="text" class="blank" data-answer="증가" data-id="pt-q17" data-hint="ㅈㄱ/ㄱㅅ">하며, 정부 관세 수입은 <strong><input type="text" class="blank" data-answer="2" data-id="pt-q18" data-hint="수입">만 달러</strong> 발생합니다.<br>
+                    그러나 사회적 총잉여는 전체적으로 <strong><input type="text" class="blank" data-answer="1" data-id="pt-q19" data-hint="순손실">만 달러</strong> 감소하며, 이 감소분이 보호무역(관세 정책)으로 인한 <strong>사회적 순손실(자원 배분의 왜곡)</strong>에 해당합니다.
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="split-visual" style="flex:1.2; display:flex; flex-direction:column; gap:16px; min-width:350px;">
+              <!-- (가) 그래프 -->
+              <div class="graph-box" style="padding:16px;">
+                <div class="graph-title" style="font-size:0.95rem; margin-bottom:8px;">📉 [가] 관세 부과 전 (자유 무역 상태 - t기)</div>
+                <svg viewBox="0 0 200 200" style="width:100%; max-height:280px;">
+                  <line x1="30" y1="160" x2="190" y2="160" stroke="#475569" stroke-width="1.5"/>
+                  <line x1="30" y1="10" x2="30" y2="160" stroke="#475569" stroke-width="1.5"/>
+                  
+                  <!-- 소비자 잉여 -->
+                  <polygon points="30,10 155,135 30,135" fill="rgba(59, 130, 246, 0.25)" stroke="#3b82f6" stroke-width="0.5"/>
+                  
+                  <!-- 생산자 잉여 -->
+                  <polygon points="30,160 55,135 30,135" fill="rgba(236, 72, 153, 0.25)" stroke="#ec4899" stroke-width="0.5"/>
+                  
+                  <!-- Curves -->
+                  <line x1="30" y1="10" x2="180" y2="160" stroke="#3b82f6" stroke-width="1.5"/>
+                  <line x1="30" y1="160" x2="180" y2="10" stroke="#ef4444" stroke-width="1.5"/>
+                  
+                  <!-- Guidelines and Price Line (Pw = 10) -->
+                  <line x1="30" y1="135" x2="180" y2="135" stroke="#047857" stroke-width="1.5" stroke-dasharray="3 3"/>
+                  
+                  <!-- Equilibrium Price P=3 guideline (Dashed) -->
+                  <line x1="30" y1="85" x2="105" y2="85" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <line x1="105" y1="85" x2="105" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <circle cx="105" cy="85" r="3" fill="#0f172a"/>
+                  
+                  <!-- Guidelines for Qs=1 and Qd=5 at P=1 -->
+                  <line x1="55" y1="135" x2="55" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <line x1="155" y1="135" x2="155" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <circle cx="55" cy="135" r="3" fill="#ef4444"/>
+                  <circle cx="155" cy="135" r="3" fill="#3b82f6"/>
+                  
+                  <!-- Labels -->
+                  <text x="180" y="171" fill="#1e3a8a" font-size="9" font-weight="bold">국내 수요</text>
+                  <text x="180" y="19" fill="#b91c1c" font-size="9" font-weight="bold">국내 공급</text>
+                  
+                  <text x="25" y="89" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">3</text>
+                  <text x="25" y="139" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">1</text>
+                  <text x="25" y="164" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <text x="55" y="172" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="middle">1</text>
+                  <text x="105" y="172" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="middle">3</text>
+                  <text x="155" y="172" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="middle">5</text>
+                  
+                  <text x="195" y="163" fill="#334155" font-size="9" font-weight="bold">Q(만개)</text>
+                  <text x="23" y="12" fill="#334155" font-size="9" font-weight="bold">P($)</text>
+                  
+                  <text x="182" y="131" fill="#047857" font-size="8.5" font-weight="bold" text-anchor="start">국제가격(1$)</text>
+                  <text x="65" y="90" fill="#1e3a8a" font-size="9.5" font-weight="bold" text-anchor="middle">소비자 잉여</text>
+                  <text x="45" y="148" fill="#9d174d" font-size="9.5" font-weight="bold" text-anchor="middle">생산자 잉여</text>
+                </svg>
+              </div>
+              
+              <!-- (나) 그래프 -->
+              <div class="graph-box" style="padding:16px;">
+                <div class="graph-title" style="font-size:0.95rem; margin-bottom:8px;">🛡️ [나] 관세 부과 후 (보호 무역 상태 - t+1기)</div>
+                <svg viewBox="0 0 200 200" style="width:100%; max-height:280px;">
+                  <line x1="30" y1="160" x2="190" y2="160" stroke="#475569" stroke-width="1.5"/>
+                  <line x1="30" y1="10" x2="30" y2="160" stroke="#475569" stroke-width="1.5"/>
+                  
+                  <!-- 소비자 잉여 -->
+                  <polygon points="30,10 130,110 30,110" fill="rgba(59, 130, 246, 0.25)" stroke="#3b82f6" stroke-width="0.5"/>
+                  
+                  <!-- 생산자 잉여 -->
+                  <polygon points="30,160 80,110 30,110" fill="rgba(236, 72, 153, 0.25)" stroke="#ec4899" stroke-width="0.5"/>
+                  
+                  <!-- 관세 수입 -->
+                  <polygon points="80,135 130,135 130,110 80,110" fill="rgba(245, 158, 11, 0.25)" stroke="#d97706" stroke-width="0.5"/>
+                  
+                  <!-- 생산 순손실 -->
+                  <polygon points="55,135 80,110 80,135" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="0.5"/>
+                  
+                  <!-- 소비 순손실 -->
+                  <polygon points="130,110 155,135 130,135" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="0.5"/>
+                  
+                  <!-- Curves -->
+                  <line x1="30" y1="10" x2="180" y2="160" stroke="#3b82f6" stroke-width="1.5"/>
+                  <line x1="30" y1="160" x2="180" y2="10" stroke="#ef4444" stroke-width="1.5"/>
+                  
+                  <!-- Guidelines and Price Lines -->
+                  <line x1="30" y1="135" x2="180" y2="135" stroke="#047857" stroke-width="1.2" stroke-dasharray="3 3"/>
+                  <line x1="30" y1="110" x2="180" y2="110" stroke="#b91c1c" stroke-width="1.5"/>
+                  
+                  <!-- Guidelines for Qs'=2 and Qd'=4 at P=2 -->
+                  <line x1="80" y1="110" x2="80" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <line x1="130" y1="110" x2="130" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                  <circle cx="80" cy="110" r="3" fill="#ef4444"/>
+                  <circle cx="130" cy="110" r="3" fill="#3b82f6"/>
+                  
+                  <!-- Guidelines for previous Qs=1 and Qd=5 at P=1 -->
+                  <line x1="55" y1="135" x2="55" y2="160" stroke="#64748b" stroke-width="0.75" stroke-dasharray="2 2"/>
+                  <line x1="155" y1="135" x2="155" y2="160" stroke="#64748b" stroke-width="0.75" stroke-dasharray="2 2"/>
+                  
+                  <!-- Labels -->
+                  <text x="180" y="171" fill="#1e3a8a" font-size="9" font-weight="bold">국내 수요</text>
+                  <text x="180" y="19" fill="#b91c1c" font-size="9" font-weight="bold">국내 공급</text>
+                  
+                  <text x="25" y="114" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">2</text>
+                  <text x="25" y="139" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">1</text>
+                  <text x="25" y="164" fill="#0f172a" font-size="9" font-weight="bold" text-anchor="end">0</text>
+                  
+                  <text x="55" y="172" fill="#0f172a" font-size="8.5" font-weight="bold" text-anchor="middle">1</text>
+                  <text x="80" y="172" fill="#0f172a" font-size="8.5" font-weight="bold" text-anchor="middle">2</text>
+                  <text x="130" y="172" fill="#0f172a" font-size="8.5" font-weight="bold" text-anchor="middle">4</text>
+                  <text x="155" y="172" fill="#0f172a" font-size="8.5" font-weight="bold" text-anchor="middle">5</text>
+                  
+                  <text x="195" y="163" fill="#334155" font-size="9" font-weight="bold">Q(만개)</text>
+                  <text x="23" y="12" fill="#334155" font-size="9" font-weight="bold">P($)</text>
+                  
+                  <text x="182" y="106" fill="#b91c1c" font-size="8.5" font-weight="bold" text-anchor="start">국제가격+관세(2$)</text>
+                  <text x="182" y="131" fill="#047857" font-size="8.5" font-weight="bold" text-anchor="start">국제가격(1$)</text>
+                  
+                  <text x="50" y="80" fill="#1e3a8a" font-size="9.5" font-weight="bold" text-anchor="middle">소비자 잉여</text>
+                  <text x="42" y="148" fill="#9d174d" font-size="9.5" font-weight="bold" text-anchor="middle">생산자 잉여</text>
+                  <text x="105" y="126" fill="#d97706" font-size="8" font-weight="bold" text-anchor="middle">관세 수입</text>
+                  
+                  <!-- 순손실 화살표 지시선 -->
+                  <path d="M68,126 L60,118" stroke="#ef4444" stroke-width="0.5"/>
+                  <text x="58" y="116" fill="#ef4444" font-size="7.5" font-weight="bold" text-anchor="end">순손실</text>
+                  
+                  <path d="M142,126 L150,118" stroke="#ef4444" stroke-width="0.5"/>
+                  <text x="152" y="116" fill="#ef4444" font-size="7.5" font-weight="bold" text-anchor="start">순손실</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="protection"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Tab 4: 종합 비교표 (Comparison Section)]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-compare">
+        <!-- 인쇄용 학적 양식 헤더 -->
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 02. 무역 원리와 무역 정책 (종합 비교표)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">📊 자유 무역과 보호 무역의 요인 및 핵심 특징 종합 비교</h2>
+        </div>
+
+        <div class="dashboard-card card-full">
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th style="width: 20%;">구분 기준</th>
+                  <th style="width: 40%;" class="th-free">자유 무역 정책</th>
+                  <th style="width: 40%;" class="th-prot">보호 무역 정책</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-label">기본 방향성</td>
+                  <td class="td-preset">국가의 인위적 개입 규제 완전 배제</td>
+                  <td class="td-preset">국가의 대외 교역 직간접적 개입 및 정비</td>
+                </tr>
+                <tr>
+                  <td class="td-label">국가 개입 수위</td>
+                  <td>국가의 시장 간섭 <input type="text" class="blank" data-answer="배제" data-id="c-b1" data-hint="ㅂㅈ"></td>
+                  <td>국가의 수출입 <input type="text" class="blank" data-answer="직간접적" data-id="c-b2" data-hint="ㅈㄱㅈㅈ">적 개입</td>
+                </tr>
+                <tr>
+                  <td class="td-label">주요 정책적 수단</td>
+                  <td class="td-preset">관세 인하, FTA 협정 및 수입 규제 제거</td>
+                  <td>관세 <input type="text" class="blank" data-answer="세금" data-id="c-b3" data-hint="ㅅㄱ"> 인상, <input type="text" class="blank" data-answer="수입 할당제" data-id="c-b4" data-hint="ㅅㅇ ㅎㄷㅈ"> 및 보조금 지급 등 비관세 조치</td>
+                </tr>
+                <tr>
+                  <td class="td-label">대표 사상가</td>
+                  <td class="td-preset">아담 스미스, 데이비드 리카도</td>
+                  <td class="td-preset">프리드리히 리스트, 알렉산더 해밀턴</td>
+                </tr>
+                <tr>
+                  <td class="td-label">긍정적 의의</td>
+                  <td>특화에 근거한 경제적 효율성 상승 및 전세계 소비 가능 조합의 확대</td>
+                  <td>아직 경쟁력이 <input type="text" class="blank" data-answer="미숙한" data-id="c-b5" data-hint="ㅁㅅㅎ"> 유치산업을 육성하고 국내 실업 안정화 기여</td>
+                </tr>
+                <tr>
+                  <td class="td-label">발생 가능한 한계</td>
+                  <td>선진국 위주의 <input type="text" class="blank" data-answer="산업 고도화" data-id="c-b6" data-hint="ㅅㅇ ㄱㄷㅎ"> 고착화, 국내 취약 산업 위축 및 <input type="text" class="blank" data-answer="국내 실업" data-id="c-b7" data-hint="ㄱㄴ ㅅㅇ"> 초래</td>
+                  <td class="td-preset">유통가 상승으로 자국 소비자 부담 증가, 국내 산업 안주 및 경쟁국 보복 조치 우려</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 하단 단어 바구니 -->
+        <div class="word-bank-wrapper">
+          <span class="bank-title">🏷️ 단어 바구니</span>
+          <div class="word-chips" data-tab="compare"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           [Tab 5-2: 실전 문제 분석 (Quiz Section)]
+           ==================================================================== -->
+      <!-- ====================================================================
+           [Tab 6: 배움 정리 (Discussion Section)]
+           ==================================================================== -->
+      <section class="lesson-section" id="tab-essay">
+        <!-- 인쇄용 학적 양식 헤더 -->
+        <div class="print-header">
+          <span class="print-header-title">🌐 고등학교 경제: 무역 원리와 무역 정책 (종합 토론 수행 활동지)</span>
+          <span class="print-student-info">학년: ____ 반: ____ 번호: ____ 이름: _________</span>
+        </div>
+
+        <div class="section-slogan">
+          <h2 class="slogan-title">✍️ Today's Mission: 나의 생각 정리 및 자가 진단</h2>
+        </div>
+
+        <div class="essay-dashboard">
+          <div class="discussion-box-card">
+            <div class="q-header">
+              <span class="q-badge">Q1</span>
+              <h4>자유 무역은 비교 우위에 따른 효율적 자원 배분과 소비자 후생 증가라는 순기능을 가지지만, 국내 특정 산업의 위축, 구조적 실업 유발, 소득 양극화 등의 부작용을 낳기도 합니다. 자유 무역이 초래하는 주요 부작용과 이를 해결하기 위한 정책적 방안에 대해 서술해 봅시다.</h4>
+            </div>
+            <div class="essay-textarea-wrapper">
+              <textarea id="essayInput1" placeholder="자유 무역으로 인해 피해를 보는 국내 취약 산업의 구체적인 피해 양상, 일자리를 잃은 노동자를 위한 재교육 및 전직 지원, 그리고 무역조정지원제도(TAA) 등 사회 안전망 강화 방안을 서술해 보세요..."></textarea>
+            </div>
+          </div>
+
+          <div class="discussion-box-card">
+            <div class="q-header">
+              <span class="q-badge">Q2</span>
+              <h4>보호 무역은 자국의 취약 산업을 보호하고 고용을 유지하는 등 국가 안보 및 경제적 안정에 기여할 수 있으나, 관세 부과에 따른 소비자 후생 감소, 상대국의 맞대응 보복 관세로 인한 무역 갈등, 국내 기업의 경쟁력 약화 등 심각한 부작용을 동반합니다. 보호 무역 조치가 가져오는 한계와 부작용에 대해 서술해 봅시다.</h4>
+            </div>
+            <div class="essay-textarea-wrapper">
+              <textarea id="essayInput2" placeholder="자국 내 수입품 가격 상승으로 인한 소비자 부담 가중, 수출 기업들이 마주하게 되는 상대국의 보복 관세 피해, 온실 속 화초처럼 보호받는 자국 기업의 생산성 및 경쟁력 저하 문제를 종합적으로 서술해 보세요..."></textarea>
+            </div>
+          </div>
+
+          <!-- 자가진단 검사표 -->
+          <div class="discussion-box-card">
+            <h3 class="block-title">스스로 배움 체크리스트 <span class="badge">자가 평가</span></h3>
+            <div class="checklist-container">
+              <label class="checklist-item">
+                <input type="checkbox" class="check-box">
+                <span class="checklist-text">자유 무역 정책의 개념과 순기능을 이해하고, 국내 특정 산업 위축이나 구조적 실업 등 자유 무역의 부작용을 구체적으로 설명할 수 있다.</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" class="check-box">
+                <span class="checklist-text">보호 무역 정책의 목적을 이해하고, 관세 장벽이 유발하는 소비자 후생 감소 및 국가 간 무역 보복 등 보호 무역의 부작용을 설명할 수 있다.</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" class="check-box">
+                <span class="checklist-text">자유 무역과 보호 무역의 상호 작용 속에서 발생하는 부작용들을 균형 있게 분석하고, 경제적 갈등을 극복하기 위한 대안을 제시할 수 있다.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 푸터 정보 -->
+    <footer class="app-footer">
+      <p>© 2026 고등학교 경제 교과 연계 인터랙티브 활동지. 경제 자료실.</p>
+    </footer>
+  </div>
+
+  <!-- 알림 토스트 메시지 -->
+  <div id="toast" class="toast"></div>
+
+  <!-- 학자 상세 카드 모달 다이얼로그 -->
+  <div id="thinkerModal" class="thinker-modal">
+    <div class="thinker-modal-content">
+      <button class="thinker-modal-close" id="modalCloseBtn">&times;</button>
+      <div class="thinker-modal-body">
+        <div class="thinker-modal-header">
+          <img id="modalThinkerImg" src="" alt="" class="modal-thinker-avatar">
+          <div>
+            <h3 id="modalThinkerName">사상가 이름</h3>
+            <span id="modalThinkerTitle" class="modal-thinker-title">경제 사상 학파</span>
+          </div>
+        </div>
+        <div class="thinker-modal-info">
+          <div class="info-block">
+            <strong>📅 생애 및 주요 이력:</strong>
+            <p id="modalThinkerLife">생애 서술...</p>
+          </div>
+          <div class="info-block">
+            <strong>📖 주요 핵심 문헌 및 이론:</strong>
+            <p id="modalThinkerBook">저서 설명...</p>
+          </div>
+          <div class="info-block highlighted-quote">
+            <strong>💡 경제학 원문 인용:</strong>
+            <p id="modalThinkerQuote">원전 번역...</p>
+          </div>
+          <div class="info-block">
+            <strong>🏷️ 연계 핵심 키워드:</strong>
+            <div id="modalThinkerKeywords" class="keyword-badges">
+              <!-- 키워드 배지 동적 삽입 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인터랙티브 스크립트 실행 -->
+  <script>
+    // --------------------------------------------------------------------------
+    // 1. 탭별 단어 칩 리스트 데이터 (정답 단어 + 변별 오답 단어 조합 - 힌트용)
+    // --------------------------------------------------------------------------
+    const tabWordBanks = {
+      freetrade: {
+        answers: ["배제", "자유로운", "종류와 양", "낮은 비용", "고용", "기술 혁신", "산업 고도화", "국내 실업", "상호 의존도", "직간접적", "5", "12.5", "25", "3", "7", "4", "24.5", "4.5", "29", "증가", "감소"],
+        distractors: ["세금", "수입 할당제", "효율성", "지속 가능성", "3.5", "15"]
+      },
+      protection: {
+        answers: ["직간접적", "미숙한", "생산 감소", "식량", "세금", "수입 할당제", "수출 보조금", "보조금", "무역 기술 장벽", "10", "20", "50", "40", "1250", "1300", "800", "200", "1200", "감소", "증가", "100"],
+        distractors: ["배제", "자유로운", "전 세계적", "공급망 단절", "30", "150", "450"]
+      },
+      compare: {
+        answers: ["배제", "직간접적", "세금", "수입 할당제", "미숙한", "산업 고도화", "국내 실업"],
+        distractors: ["낮은 비용", "기술 혁신", "수출길"]
+      }
+    };
+
+    const essayModelAnswers = {
+      essay1: "자유 무역은 국가 전체의 부를 증가시키지만, 비교 열위에 있는 국내 취약 산업(예: 농업, 단순 제조업)의 급격한 위축과 이에 따른 구조적 실업 및 소득 분배 악화라는 부작용을 초래합니다. 이를 해결하기 위해 정부는 자유 무역 협정(FTA) 체결 시 피해 산업에 대한 직접적인 손실 보전(무역조정지원제도 등)을 실시하고, 실직 노동자들을 위한 고용 보험 제공 및 전직·재교육 프로그램을 확충하여 사회적 안전망을 굳건히 다져야 합니다.",
+      essay2: "보호 무역은 관세 부과 등을 통해 수입을 제한하여 단기적으로 자국 산업을 지키지만, 소비자가 더 비싼 가격에 제품을 소비하게 만들어 소비자 잉여를 감소시킵니다. 또한, 상대국의 보복 관세 조치를 유발해 국가 간 전면적인 무역 전쟁과 글로벌 교역량 감소로 이어지며, 장기적으로는 보호받는 국내 기업들이 안주하게 되어 기술 혁신 및 생산 효율성을 저해하는 부작용을 낳습니다."
+    };
+
+    // --------------------------------------------------------------------------
+    // 1.1. 경제학자 데이터베이스 정보
+    // --------------------------------------------------------------------------
+    const thinkersDb = {
+      smith: {
+        name: "아담 스미스 (Adam Smith)",
+        title: "고전학파 자유주의 - 18세기 영국 경제학자",
+        life: "1723년 ~ 1790년. 스코틀랜드 글래스고 대학교 재학 및 교수 이력을 보냈으며, 보이지 않는 손을 통한 시장 원리 자율성이 국가 간 무역에도 무규제 자유거래로 통용되어야 국부가 극대화된다고 주장했습니다.",
+        book: "『국부론(The Wealth of Nations)』. 국가 간 장벽이나 보조금 장치 등은 자원 배분의 효용을 깨뜨린다고 판단해 강렬히 비판하며 분업 중심의 절대 우위 무역론을 설계했습니다.",
+        quote: "“자신이 만드는 것보다 비용이 더 적게 드는 물건을 파는 이웃국이 있다면, 직접 생산하느라 힘쓰기보다 비교를 통해 구매하는 것이 전체 부를 늘리는 자연스러운 방법이다.”",
+        keywords: ["보이지 않는 손", "국부론", "절대 우위론", "자유 시장주의"]
+      },
+      ricardo: {
+        name: "데이비드 리카도 (David Ricardo)",
+        title: "고전학파 무역학파 - 19세기 영국 경제학자",
+        life: "1772년 ~ 1823년. 런던 출생의 실업가이자 경제 이론가로서 영국 하원의원으로도 활동했으며 곡물법(자국 농민 보호 관세) 폐지를 선두에서 이끌며 시장의 개방화를 앞당겼습니다.",
+        book: "『정치경제학 및 과세의 원리』. 무역 교류를 펼치는 모든 국이 서로 완벽하게 모든 공정에서 앞서는 품목이 없더라도 기회비용 비례에 준해 생산을 특화 무역하면 서로의 총 소비 총량이 늘어남을 정립했습니다.",
+        quote: "“각 나라가 지리적, 천혜적 소질에 부합해 비교우위를 지닌 영역에 자원을 집중하고 교류할 때, 전 세계의 유기적 능력이 극대화되고 인류는 최고치 복지를 누릴 수 있다.”",
+        keywords: ["비교 우위론", "기회비용 특화", "곡물법 반대", "자유 무역 이론"]
+      },
+      hamilton: {
+        name: "알렉산더 해밀턴 (Alexander Hamilton)",
+        title: "보호주의 선구자 - 18세기 미국 초대 재무장관",
+        life: "1755년 ~ 1804년. 미국의 초대 재무장관으로서 강력한 연방정부 구축과 독자적 금융 세제를 확립했습니다. 영국의 산업 독점력에 대응하기 위해 관세와 보조금 제도를 활용한 국가 주도의 제조업 육성을 강력히 주장했습니다.",
+        book: "『제조업에 관한 보고서(Report on Manufactures, 1791)』. 국가의 제조업 자립이 국방 안보 및 참된 독립에 필수적임을 밝히고, 미성숙한 국내 산업을 보호하기 위한 유치산업 보호론의 경제학적 씨앗을 최초로 뿌렸습니다.",
+        quote: "“신생 국가의 어린 산업들이 거대하고 성숙한 외국 산업들과 직접 경쟁하게 두는 것은 마치 갓 태어난 아이를 거친 전쟁터에 내던지는 것과 같으며, 국가적 개입이 있어야만 자립할 수 있다.”",
+        keywords: ["제조업 보고서", "미국 건국의 아버지", "유치산업 보호론", "보호주의 관세"]
+      },
+      list: {
+        name: "프리드리히 리스트 (Friedrich List)",
+        title: "보호주의 - 19세기 독일 경제학자",
+        life: "1789년 ~ 1846년. 독일 관세동맹을 조직하고 정립하였으며 자국의 영토적, 정치적 역사가 타국과 균등하지 못한 상태에서 무턱대고 링에 올라와 맞붙는 영국의 자유 경쟁 권유가 허상임을 주장했습니다.",
+        book: "『정치경제학의 국민적 체계』. 선진 대량 생산국들의 공급 경쟁에서 막 싹을 틔운 자국의 유치산업들을 성장시키기 위해 과도기 관세를 정착하고 국가적 체급을 길러 균등해질 때 비로소 자유무역을 해야 한다고 보았습니다.",
+        quote: "“높은 정상에 올라가 더 높이 성장한 선진국가들은, 자신들이 올랐던 그 사다리(보호 무역 지원)를 발로 차 버리고 후발국가들에 자유경쟁이라는 기만을 요구한다.”",
+        keywords: ["유치산업 보호론", "독일 역사학파", "관세 동맹", "사다리 걷어차기"]
+      }
+    };
+
+    // --------------------------------------------------------------------------
+    // 2. 애플리케이션 상태 (State)
+    // --------------------------------------------------------------------------
+    let activeTab = "intro";
+    
+    // 해결한 빈칸 저장 세트 (로컬스토리지 보존)
+    let solvedBlanks = new Set();
+    // 주관식 에세이 기입
+    let essays = { essay1: "", essay2: "" };
+
+    // --------------------------------------------------------------------------
+    // 3. 주요 DOM 수집
+    // --------------------------------------------------------------------------
+    const body = document.body;
+    const tabButtons = document.querySelectorAll(".topic-btn");
+    const lessonSections = document.querySelectorAll(".lesson-section");
+    const modeToggle = document.getElementById("modeToggle");
+    const printBtn = document.getElementById("printBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const progressBarFill = document.getElementById("progressBarFill");
+    const progressText = document.getElementById("progressText");
+    const toast = document.getElementById("toast");
+
+    const allBlanks = document.querySelectorAll(".blank");
+    const totalBlanksCount = allBlanks.length;
+
+    // 모달 DOM 수집
+    const thinkerModal = document.getElementById("thinkerModal");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const modalThinkerImg = document.getElementById("modalThinkerImg");
+    const modalThinkerName = document.getElementById("modalThinkerName");
+    const modalThinkerTitle = document.getElementById("modalThinkerTitle");
+    const modalThinkerLife = document.getElementById("modalThinkerLife");
+    const modalThinkerBook = document.getElementById("modalThinkerBook");
+    const modalThinkerQuote = document.getElementById("modalThinkerQuote");
+    const modalThinkerKeywords = document.getElementById("modalThinkerKeywords");
+
+    // --------------------------------------------------------------------------
+    // 4. 애플리케이션 초기화 및 이벤트 연결
+    // --------------------------------------------------------------------------
+    document.addEventListener("DOMContentLoaded", () => {
+      loadFromLocalStorage();
+      initBlanks();
+      initTabNavigation();
+      initEssayInputs();
+      initThinkerModalEvents();
+
+
+      modeToggle.addEventListener("change", handleModeChange);
+      printBtn.addEventListener("click", () => window.print());
+      resetBtn.addEventListener("click", resetWorkbook);
+
+      switchTab("intro");
+      updateProgress();
+    });
+
+    // --------------------------------------------------------------------------
+    // 5. 탭 변경 내비게이션
+    // --------------------------------------------------------------------------
+    function initTabNavigation() {
+      tabButtons.forEach((btn) => {
+        if (btn.classList.contains("link-btn")) return;
+        const tabId = btn.getAttribute("data-tab");
+        btn.addEventListener("click", () => switchTab(tabId));
+      });
+
+      const quizLink = document.getElementById("quizLink");
+      if (quizLink) {
+        quizLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          const password = prompt("실전 문제 분석 페이지에 진입하기 위해 비밀번호를 입력해주세요:");
+          if (password === "무역원리") {
+            window.location.href = quizLink.href;
+          } else if (password !== null) {
+            showToast("비밀번호가 올바르지 않습니다. ❌", false);
+          }
+        });
+      }
+
+      // 단축키 바인딩 (1~7번 키로 탭 스위칭)
+      document.addEventListener("keydown", (e) => {
+        if (["TEXTAREA", "INPUT"].includes(document.activeElement.tagName)) return;
+        
+        const tabKeys = {
+          "1": "intro",
+          "2": "freetrade",
+          "3": "protection",
+          "4": "compare",
+          "5": "essay"
+        };
+        if (tabKeys[e.key]) {
+          switchTab(tabKeys[e.key]);
+        }
+      });
+    }
+
+    function switchTab(tabId) {
+      activeTab = tabId;
+
+      tabButtons.forEach((btn) => {
+        if (btn.getAttribute("data-tab") === tabId) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      lessonSections.forEach((sec) => {
+        if (sec.id === `tab-${tabId}`) {
+          sec.classList.add("active");
+        } else {
+          sec.classList.remove("active");
+        }
+      });
+
+      // 바디 테마 클래스 스위칭 (컬러 브랜딩)
+      body.className = body.className.replace(/theme-\S+/g, "");
+      body.classList.add(`theme-${tabId}`);
+
+      renderWordChips(tabId);
+    }
+
+    // --------------------------------------------------------------------------
+    // 6. 단어 칩 힌트 렌더링
+    // --------------------------------------------------------------------------
+    function renderWordChips(tabId) {
+      const container = document.querySelector(`.word-chips[data-tab="${tabId}"]`);
+      if (!container) return;
+
+      container.innerHTML = "";
+      const tabData = tabWordBanks[tabId];
+      if (!tabData) return;
+
+      // 정답 + 오답 병합 및 셔플링
+      const combined = [...tabData.answers, ...tabData.distractors];
+      const shuffled = shuffle(combined);
+
+      shuffled.forEach((word) => {
+        const chip = document.createElement("div");
+        chip.className = "word-chip";
+        chip.innerText = word;
+        chip.setAttribute("data-word", word);
+        container.appendChild(chip);
+      });
+
+      updateWordChipsStatus(tabId);
+    }
+
+    function shuffle(array) {
+      const result = [...array];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    function updateWordChipsStatus(tabId) {
+      const container = document.querySelector(`.word-chips[data-tab="${tabId}"]`);
+      if (!container) return;
+
+      const chips = container.querySelectorAll(".word-chip");
+      const tabBlanks = document.querySelectorAll(`#tab-${tabId} .blank`);
+
+      // 해당 탭에서 맞춰놓은 정답들 체크
+      const solvedCounts = {};
+      tabBlanks.forEach((blank) => {
+        const blankId = blank.getAttribute("data-id");
+        const answer = blank.getAttribute("data-answer");
+        if (solvedBlanks.has(blankId)) {
+          solvedCounts[answer] = (solvedCounts[answer] || 0) + 1;
+        }
+      });
+
+      const tracker = { ...solvedCounts };
+
+      chips.forEach((chip) => {
+        const word = chip.getAttribute("data-word");
+        if (tracker[word] > 0) {
+          chip.classList.add("used");
+          tracker[word]--;
+        } else {
+          chip.classList.remove("used");
+        }
+      });
+    }
+
+    // --------------------------------------------------------------------------
+    // 7. 빈칸 인풋 이벤트 제어 & 타이핑 채점
+    // --------------------------------------------------------------------------
+    // 텍스트 정규화 함수 (다양한 입력 형식 매칭 지원)
+    function normalizeText(str) {
+      if (!str) return "";
+      let s = str.toLowerCase();
+      // 변수형태 뒤에 붙는 '등' 제거 (예: Q_0Q_3 등, Q_0Q_3등, Q_0 등)
+      s = s.replace(/([a-z0-9_~₀₁₂₃₄₅₆₇₈₉])\s*등$/, "$1");
+      // 모든 공백 제거
+      s = s.replace(/\s+/g, "");
+      // 기호 제거 (~, -, _, ,)
+      s = s.replace(/[~\-_,]/g, "");
+      // 아래첨자 변환
+      s = s.replace(/₀/g, "0")
+           .replace(/₁/g, "1")
+           .replace(/₂/g, "2")
+           .replace(/₃/g, "3")
+           .replace(/₄/g, "4")
+           .replace(/₅/g, "5")
+           .replace(/₆/g, "6")
+           .replace(/₇/g, "7")
+           .replace(/₈/g, "8")
+           .replace(/₉/g, "9");
+      return s;
+    }
+
+    function initBlanks() {
+      allBlanks.forEach((blank) => {
+        const blankId = blank.getAttribute("data-id");
+        const answer = blank.getAttribute("data-answer");
+        const hint = blank.getAttribute("data-hint");
+
+        // 브라우저 자동완성 방지 (클릭 시 이전 정답/오답 목록 노출되는 현상 방지)
+        blank.setAttribute("autocomplete", "off");
+
+        // 다중 정답 지원: 첫 번째 정답을 표준/대표 정답으로 사용
+        const standardAnswer = answer.split("|")[0];
+
+        // 최적 인풋 넓이 동적 설정 (텍스트 길이에 어울리게 조절)
+        blank.style.width = (standardAnswer.length * 20 + 36) + "px";
+
+        if (solvedBlanks.has(blankId)) {
+          blank.classList.add("revealed");
+          blank.value = standardAnswer;
+          blank.readOnly = false;
+        } else {
+          blank.value = "";
+          blank.placeholder = hint;
+          blank.readOnly = false;
+        }
+
+        // 실시간 입력 검증
+        blank.addEventListener("input", (e) => {
+          if (body.classList.contains("mode-teacher")) return;
+          const userInput = e.target.value.trim();
+          const expectedList = answer.split("|").map(ans => ans.trim());
+
+          const normInput = normalizeText(userInput);
+          const isCorrect = expectedList.some(ans => normalizeText(ans) === normInput);
+
+          // 정답 판정
+          if (isCorrect) {
+            revealBlank(blank, blankId, standardAnswer);
+          } else {
+            // 이전에 정답 판정되었으나 오답 또는 빈칸으로 변경된 경우
+            if (blank.classList.contains("revealed")) {
+              unrevealBlank(blank, blankId);
+            }
+          }
+        });
+
+        // 엔터 키 눌렀을 때 오답 시 진동 피드백
+        blank.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const userInput = e.target.value.trim();
+            const expectedList = answer.split("|").map(ans => ans.trim());
+            const normInput = normalizeText(userInput);
+            const isCorrect = expectedList.some(ans => normalizeText(ans) === normInput);
+
+            if (!isCorrect && userInput !== "") {
+              blank.classList.add("shake");
+              showToast("입력한 단어가 정답과 다릅니다. 다시 생각해보세요! ❌", false);
+              setTimeout(() => blank.classList.remove("shake"), 400);
+            }
+          }
+        });
+
+      });
+    }
+
+    function revealBlank(blank, blankId, answer) {
+      if (blank.classList.contains("revealed")) return;
+      
+      blank.classList.add("revealed");
+      blank.value = answer;
+      blank.readOnly = false;
+      solvedBlanks.add(blankId);
+
+      // 폭죽 이펙트
+      triggerSparkles(blank);
+
+      saveToLocalStorage();
+      updateProgress();
+      updateWordChipsStatus(activeTab);
+      showToast("참 잘했습니다! 정답입니다! 👏", true);
+    }
+
+    function unrevealBlank(blank, blankId) {
+      if (!blank.classList.contains("revealed")) return;
+
+      blank.classList.remove("revealed");
+      solvedBlanks.delete(blankId);
+
+      saveToLocalStorage();
+      updateProgress();
+      updateWordChipsStatus(activeTab);
+    }
+
+    // 성공 파티클 폭죽 효과
+    function triggerSparkles(element) {
+      const rect = element.getBoundingClientRect();
+      const container = document.body;
+
+      for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle-particle";
+
+        const colors = ["#0f766e", "#1e3a8a", "#b91c1c", "#7e22ce", "#047857", "#b45309"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        sparkle.style.backgroundColor = color;
+        const size = Math.random() * 8 + 4;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+
+        const startX = rect.left + rect.width / 2 + window.scrollX;
+        const startY = rect.top + rect.height / 2 + window.scrollY;
+
+        sparkle.style.left = `${startX}px`;
+        sparkle.style.top = `${startY}px`;
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 90 + 30;
+        const destX = Math.cos(angle) * distance;
+        const destY = Math.sin(angle) * distance;
+
+        sparkle.style.setProperty("--dest-x", `${destX}px`);
+        sparkle.style.setProperty("--dest-y", `${destY}px`);
+
+        container.appendChild(sparkle);
+
+        sparkle.addEventListener("animationend", () => sparkle.remove());
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 8. 주관식 입력 제어
+    // --------------------------------------------------------------------------
+    function initEssayInputs() {
+      const essayInput1 = document.getElementById("essayInput1");
+      const essayInput2 = document.getElementById("essayInput2");
+
+      essayInput1.value = essays.essay1 || "";
+      essayInput2.value = essays.essay2 || "";
+
+      essayInput1.addEventListener("input", (e) => {
+        essays.essay1 = e.target.value;
+        saveToLocalStorage();
+      });
+
+      essayInput2.addEventListener("input", (e) => {
+        essays.essay2 = e.target.value;
+        saveToLocalStorage();
+      });
+    }
+
+    // --------------------------------------------------------------------------
+    // 9. 사상가 모달 다이얼로그 제어
+    // --------------------------------------------------------------------------
+    function initThinkerModalEvents() {
+      const clickableThinkers = document.querySelectorAll(".clickable-thinker");
+
+      clickableThinkers.forEach((thinker) => {
+        thinker.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const key = thinker.getAttribute("data-thinker");
+          const data = thinkersDb[key];
+          if (!data) return;
+
+          modalThinkerImg.src = thinker.querySelector(".p-avatar-img").src;
+          modalThinkerImg.alt = data.name;
+          modalThinkerName.innerText = data.name;
+          modalThinkerTitle.innerText = data.title;
+          modalThinkerLife.innerText = data.life;
+          modalThinkerBook.innerText = data.book;
+          modalThinkerQuote.innerText = data.quote;
+
+          // 키워드 배지
+          modalThinkerKeywords.innerHTML = "";
+          data.keywords.forEach((kw) => {
+            const b = document.createElement("span");
+            b.className = "keyword-badge";
+            b.innerText = kw;
+            modalThinkerKeywords.appendChild(b);
+          });
+
+          thinkerModal.classList.add("show");
+        });
+      });
+
+      modalCloseBtn.addEventListener("click", closeModal);
+      thinkerModal.addEventListener("click", (e) => {
+        if (e.target === thinkerModal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && thinkerModal.classList.contains("show")) closeModal();
+      });
+    }
+
+    function closeModal() {
+      thinkerModal.classList.remove("show");
+    }
+
+    // --------------------------------------------------------------------------
+    // 10. 교사용/학생용 모드 토글
+    // --------------------------------------------------------------------------
+    function handleModeChange(e) {
+      const isTeacher = e.target.checked;
+      const labelStudent = document.querySelector(".label-student");
+      const labelTeacher = document.querySelector(".label-teacher");
+      const essayInput1 = document.getElementById("essayInput1");
+      const essayInput2 = document.getElementById("essayInput2");
+
+      if (isTeacher) {
+        // 교사용 모범답안 모드 진입 시 비밀번호 입력창 활성화 (학생들의 치팅 방지)
+        const password = prompt("교사용 모드 활성화를 위한 비밀번호를 입력해주세요:");
+        if (password !== "경제교사") {
+          showToast("비밀번호가 올바르지 않습니다. ❌", false);
+          e.target.checked = false;
+          return;
+        }
+
+        body.classList.remove("mode-student");
+        body.classList.add("mode-teacher");
+        labelStudent.classList.remove("active");
+        labelTeacher.classList.add("active");
+
+        // 전체 빈칸 강제 노출 및 락
+        allBlanks.forEach((blank) => {
+          const rawAnswer = blank.getAttribute("data-answer");
+          blank.value = rawAnswer.split("|")[0];
+          blank.readOnly = true;
+        });
+
+        // 모범답안 동기화 및 읽기 전용 전환
+        essayInput1.value = essayModelAnswers.essay1;
+        essayInput2.value = essayModelAnswers.essay2;
+        essayInput1.readOnly = true;
+        essayInput2.readOnly = true;
+
+        progressBarFill.style.width = "100%";
+        progressText.innerText = "100%";
+        showToast("모범 답안 모드가 활성화되었습니다.");
+      } else {
+        body.classList.remove("mode-teacher");
+        body.classList.add("mode-student");
+        labelTeacher.classList.remove("active");
+        labelStudent.classList.add("active");
+
+        // 개인 진척도 기준으로 빈칸 복구
+        allBlanks.forEach((blank) => {
+          const blankId = blank.getAttribute("data-id");
+          const answer = blank.getAttribute("data-answer");
+          const hint = blank.getAttribute("data-hint");
+          const standardAnswer = answer.split("|")[0];
+
+          if (solvedBlanks.has(blankId)) {
+            blank.classList.add("revealed");
+            blank.value = standardAnswer;
+            blank.readOnly = false;
+          } else {
+            blank.classList.remove("revealed");
+            blank.value = "";
+            blank.placeholder = hint;
+            blank.readOnly = false;
+          }
+        });
+
+        // 학생 저장 에세이 복원 및 에디터 활성화
+        essayInput1.value = essays.essay1 || "";
+        essayInput2.value = essays.essay2 || "";
+        essayInput1.readOnly = false;
+        essayInput2.readOnly = false;
+
+        updateProgress();
+        updateWordChipsStatus(activeTab);
+        showToast("학생용 자습 모드로 전환되었습니다.");
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 11. 진척도 동기화 & 유틸리티
+    // --------------------------------------------------------------------------
+    function updateProgress() {
+      if (body.classList.contains("mode-teacher")) return;
+
+      const percent = Math.round((solvedBlanks.size / totalBlanksCount) * 100) || 0;
+      progressBarFill.style.width = `${percent}%`;
+      progressText.innerText = `${percent}%`;
+    }
+
+    function showToast(message, isSuccess = true) {
+      toast.innerText = message;
+      toast.style.backgroundColor = isSuccess ? "rgba(15, 23, 42, 0.95)" : "rgba(185, 28, 28, 0.95)";
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+    function resetWorkbook() {
+      if (!confirm("작성하신 모든 정답과 에세이 정보를 완전히 초기화하시겠습니까?")) return;
+
+      solvedBlanks.clear();
+      essays = { essay1: "", essay2: "" };
+
+      document.getElementById("essayInput1").value = "";
+      document.getElementById("essayInput2").value = "";
+
+      allBlanks.forEach((blank) => {
+        const hint = blank.getAttribute("data-hint");
+        blank.classList.remove("revealed");
+        blank.value = "";
+        blank.placeholder = hint;
+        blank.readOnly = false;
+      });
+
+      document.querySelectorAll(".check-box").forEach(cb => cb.checked = false);
+
+      // 퀴즈 리셋
+      document.querySelectorAll('input[name="quizChoice"]').forEach(r => r.checked = false);
+      const quizExplanation = document.getElementById("quizExplanation");
+      if (quizExplanation) quizExplanation.classList.remove("visible");
+      const pwSlider = document.getElementById("pwSlider");
+      if (pwSlider) {
+        pwSlider.value = 40;
+        updateQuizSimulation(40);
+      }
+
+      if (modeToggle.checked) {
+        modeToggle.checked = false;
+        handleModeChange({ target: { checked: false } });
+      }
+
+      saveToLocalStorage();
+      updateProgress();
+      renderWordChips(activeTab);
+      showToast("학습 판넬이 안전하게 포맷되었습니다.");
+    }
+
+    // --------------------------------------------------------------------------
+    // 12. 로컬 스토리지 보존
+    // --------------------------------------------------------------------------
+    function saveToLocalStorage() {
+      localStorage.setItem("trade_lesson_solved_blanks", JSON.stringify(Array.from(solvedBlanks)));
+      localStorage.setItem("trade_lesson_essays", JSON.stringify(essays));
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const solved = localStorage.getItem("trade_lesson_solved_blanks");
+        if (solved) {
+          solvedBlanks = new Set(JSON.parse(solved));
+        }
+
+        const savedEssays = localStorage.getItem("trade_lesson_essays");
+        if (savedEssays) {
+          essays = JSON.parse(savedEssays);
+        }
+      } catch (e) {
+        console.error("Local storage load fail", e);
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 13. 수능 실전 퀴즈 & 시뮬레이터 제어
+    // --------------------------------------------------------------------------
+    
+    </script>
+</body>
+</html>
